@@ -1,0 +1,283 @@
+<RCC>
+    <qresource prefix="/image">
+        <file>images/image/add.png</file>
+        <file>images/image/face.png</file>
+        <file>images/image/Ilike.png</file>
+        <file>images/image/Ilike1.png</file>
+        <file>images/image/jump.png</file>
+        <file>images/image/left.png</file>
+        <file>images/image/left-arrow.png</file>
+        <file>images/image/like.png</file>
+        <file>images/image/list.png</file>
+        <file>images/image/loop.png</file>
+        <file>images/image/loop-list.png</file>
+        <file>images/image/loop-one.png</file>
+        <file>images/image/max.png</file>
+        <file>images/image/min.png</file>
+        <file>images/image/music.png</file>
+        <file>images/image/music-voice.png</file>
+        <file>images/image/next.png</file>
+        <file>images/image/none-music.png</file>
+        <file>images/image/pase.png</file>
+        <file>images/image/play.png</file>
+        <file>images/image/playlist.png</file>
+        <file>images/image/play-random.png</file>
+        <file>images/image/play-resently.png</file>
+        <file>images/image/position.png</file>
+        <file>images/image/pre.png</file>
+        <file>images/image/quit.png</file>
+        <file>images/image/right.png</file>
+        <file>images/image/right-arrow.png</file>
+        <file>images/image/sereach.png</file>
+        <file>images/image/setting.png</file>
+        <file>images/image/tr.png</file>
+        <file>images/image/播放.png</file>
+        <file>images/image/皮肤 (1).png</file>
+    </qresource>
+    <qresource prefix="/image-hover">
+        <file>images/image-hover/add-hover.png</file>
+        <file>images/image-hover/Ilike1-hover.png</file>
+        <file>images/image-hover/Ilike-hover.png</file>
+        <file>images/image-hover/jump-hover.png</file>
+        <file>images/image-hover/left-arrow-hover.png</file>
+        <file>images/image-hover/left-light.png</file>
+        <file>images/image-hover/like-hover.png</file>
+        <file>images/image-hover/list-hover.png</file>
+        <file>images/image-hover/loop-hover.png</file>
+        <file>images/image-hover/loop-list-hover.png</file>
+        <file>images/image-hover/loop-one-hover.png</file>
+        <file>images/image-hover/music-hover.png</file>
+        <file>images/image-hover/music-voice-hover.png</file>
+        <file>images/image-hover/next-hover.png</file>
+        <file>images/image-hover/none-music-hover.png</file>
+        <file>images/image-hover/pase-hover.png</file>
+        <file>images/image-hover/play-hover.png</file>
+        <file>images/image-hover/playlist-hover.png</file>
+        <file>images/image-hover/play-random-hover.png</file>
+        <file>images/image-hover/play-resently-hover.png</file>
+        <file>images/image-hover/position-hover.png</file>
+        <file>images/image-hover/pre-hover.png</file>
+        <file>images/image-hover/right-hover.png</file>
+        <file>images/image-hover/sereach-hover.png</file>
+        <file>images/image-hover/setting.png</file>
+    </qresource>
+    <qresource prefix="/topwidget">
+        <file>images/topwidget/btn_ return(1).png</file>
+        <file>images/topwidget/btn_ return(2).png</file>
+        <file>images/topwidget/btn_ return(3).png</file>
+        <file>images/topwidget/btn_close (1).png</file>
+        <file>images/topwidget/btn_close (2).png</file>
+        <file>images/topwidget/btn_close (3).png</file>
+        <file>images/topwidget/btn_game (1).png</file>
+        <file>images/topwidget/btn_game (2).png</file>
+        <file>images/topwidget/btn_game (3).png</file>
+        <file>images/topwidget/btn_message (1).png</file>
+        <file>images/topwidget/btn_message (2).png</file>
+        <file>images/topwidget/btn_message (3).png</file>
+        <file>images/topwidget/btn_message (4).png</file>
+        <file>images/topwidget/btn_mini (1).png</file>
+        <file>images/topwidget/btn_mini (2).png</file>
+        <file>images/topwidget/btn_mini (3).png</file>
+        <file>images/topwidget/btn_miniframe (1).png</file>
+        <file>images/topwidget/btn_miniframe (2).png</file>
+        <file>images/topwidget/btn_miniframe (3).png</file>
+        <file>images/topwidget/btn_miniframe (4).png</file>
+        <file>images/topwidget/btn_mobile (1).png</file>
+        <file>images/topwidget/btn_mobile (2).png</file>
+        <file>images/topwidget/btn_mobile (3).png</file>
+        <file>images/topwidget/btn_mobile (4).png</file>
+        <file>images/topwidget/btn_playcard (1).png</file>
+        <file>images/topwidget/btn_playcard (2).png</file>
+        <file>images/topwidget/btn_playcard (3).png</file>
+        <file>images/topwidget/btn_refresh(1).png</file>
+        <file>images/topwidget/btn_refresh(2).png</file>
+        <file>images/topwidget/btn_refresh(3).png</file>
+        <file>images/topwidget/btn_search (1).png</file>
+        <file>images/topwidget/btn_search (2).png</file>
+        <file>images/topwidget/btn_search (3).png</file>
+        <file>images/topwidget/btn_setting (1).png</file>
+        <file>images/topwidget/btn_setting (2).png</file>
+        <file>images/topwidget/btn_setting (3).png</file>
+        <file>images/topwidget/btn_skin (1).png</file>
+        <file>images/topwidget/btn_skin (2).png</file>
+        <file>images/topwidget/btn_skin (3).png</file>
+        <file>images/topwidget/btn_tool (1).png</file>
+        <file>images/topwidget/btn_tool (2).png</file>
+        <file>images/topwidget/btn_tool (3).png</file>
+        <file>images/topwidget/btn_tool (4).png</file>
+        <file>images/topwidget/label_icon.png</file>
+    </qresource>
+    <qresource prefix="/middlewidget">
+        <file>images/middlewidget/btn_addtips (1).png</file>
+        <file>images/middlewidget/btn_addtips (2).png</file>
+        <file>images/middlewidget/btn_addtips (3).png</file>
+        <file>images/middlewidget/btn_addtips (4).png</file>
+        <file>images/middlewidget/btn_cloud (1).png</file>
+        <file>images/middlewidget/btn_cloud (2).png</file>
+        <file>images/middlewidget/btn_cloud (3).png</file>
+        <file>images/middlewidget/btn_cross (1).png</file>
+        <file>images/middlewidget/btn_cross (2).png</file>
+        <file>images/middlewidget/btn_cross (3).png</file>
+        <file>images/middlewidget/btn_cross (4).png</file>
+        <file>images/middlewidget/btn_del (1).png</file>
+        <file>images/middlewidget/btn_del (2).png</file>
+        <file>images/middlewidget/btn_del (3).png</file>
+        <file>images/middlewidget/btn_del (4).png</file>
+        <file>images/middlewidget/btn_download (1).png</file>
+        <file>images/middlewidget/btn_download (2).png</file>
+        <file>images/middlewidget/btn_download (3).png</file>
+        <file>images/middlewidget/btn_downloadmini (1).png</file>
+        <file>images/middlewidget/btn_downloadmini (2).png</file>
+        <file>images/middlewidget/btn_downloadmini (3).png</file>
+        <file>images/middlewidget/btn_downloadmini (4).png</file>
+        <file>images/middlewidget/btn_islove (1).png</file>
+        <file>images/middlewidget/btn_islove (2).png</file>
+        <file>images/middlewidget/btn_islove (3).png</file>
+        <file>images/middlewidget/btn_location (1).png</file>
+        <file>images/middlewidget/btn_location (2).png</file>
+        <file>images/middlewidget/btn_location (3).png</file>
+        <file>images/middlewidget/btn_love (1).png</file>
+        <file>images/middlewidget/btn_love (2).png</file>
+        <file>images/middlewidget/btn_love (3).png</file>
+        <file>images/middlewidget/btn_love (4).png</file>
+        <file>images/middlewidget/btn_mask.png</file>
+        <file>images/middlewidget/btn_more (1).png</file>
+        <file>images/middlewidget/btn_more (2).png</file>
+        <file>images/middlewidget/btn_more (3).png</file>
+        <file>images/middlewidget/btn_more (4).png</file>
+        <file>images/middlewidget/btn_music (1).png</file>
+        <file>images/middlewidget/btn_music (2).png</file>
+        <file>images/middlewidget/btn_music (3).png</file>
+        <file>images/middlewidget/btn_mv (1).png</file>
+        <file>images/middlewidget/btn_mv (2).png</file>
+        <file>images/middlewidget/btn_mv (3).png</file>
+        <file>images/middlewidget/btn_mv (4).png</file>
+        <file>images/middlewidget/btn_phone (1).png</file>
+        <file>images/middlewidget/btn_phone (2).png</file>
+        <file>images/middlewidget/btn_phone (3).png</file>
+        <file>images/middlewidget/btn_radio (1).png</file>
+        <file>images/middlewidget/btn_radio (2).png</file>
+        <file>images/middlewidget/btn_radio (3).png</file>
+        <file>images/middlewidget/btn_search (1).png</file>
+        <file>images/middlewidget/btn_search (2).png</file>
+        <file>images/middlewidget/btn_search (3).png</file>
+        <file>images/middlewidget/btn_searchadd (1).png</file>
+        <file>images/middlewidget/btn_searchadd (2).png</file>
+        <file>images/middlewidget/btn_searchadd (3).png</file>
+        <file>images/middlewidget/btn_searchadd (4).png</file>
+        <file>images/middlewidget/btn_searchplay (1).png</file>
+        <file>images/middlewidget/btn_searchplay (2).png</file>
+        <file>images/middlewidget/btn_searchplay (3).png</file>
+        <file>images/middlewidget/btn_searchplay (4).png</file>
+        <file>images/middlewidget/checked.png</file>
+        <file>images/middlewidget/indicator.png</file>
+        <file>images/middlewidget/indicator_down (1).png</file>
+        <file>images/middlewidget/indicator_down (2).png</file>
+        <file>images/middlewidget/indicator_menu (1).png</file>
+        <file>images/middlewidget/indicator_menu (2).png</file>
+        <file>images/middlewidget/indicator_menu (3).png</file>
+        <file>images/middlewidget/indicator_top (1).png</file>
+        <file>images/middlewidget/indicator_top (2).png</file>
+        <file>images/middlewidget/lab_add.png</file>
+        <file>images/middlewidget/lab_addfolder.png</file>
+        <file>images/middlewidget/lab_success.png</file>
+        <file>images/middlewidget/loading.png</file>
+        <file>images/middlewidget/unchecked.png</file>
+        <file>images/middlewidget/lab_Author.png</file>
+        <file>images/middlewidget/sound.png</file>
+    </qresource>
+    <qresource prefix="/bottomwidget">
+        <file>images/bottomwidget/btn_download (1).png</file>
+        <file>images/bottomwidget/btn_download (2).png</file>
+        <file>images/bottomwidget/btn_download (3).png</file>
+        <file>images/bottomwidget/btn_download (4).png</file>
+        <file>images/bottomwidget/btn_equalizer (1).png</file>
+        <file>images/bottomwidget/btn_equalizer (2).png</file>
+        <file>images/bottomwidget/btn_equalizer (3).png</file>
+        <file>images/bottomwidget/btn_equalizer (4).png</file>
+        <file>images/bottomwidget/btn_favorite_no (1).png</file>
+        <file>images/bottomwidget/btn_favorite_no (2).png</file>
+        <file>images/bottomwidget/btn_favorite_no (3).png</file>
+        <file>images/bottomwidget/btn_favorite_yes (1).png</file>
+        <file>images/bottomwidget/btn_favorite_yes (2).png</file>
+        <file>images/bottomwidget/btn_favorite_yes (3).png</file>
+        <file>images/bottomwidget/btn_listcircle (1).png</file>
+        <file>images/bottomwidget/btn_listcircle (2).png</file>
+        <file>images/bottomwidget/btn_listjump (1).png</file>
+        <file>images/bottomwidget/btn_listjump (2).png</file>
+        <file>images/bottomwidget/btn_listrandom (1).png</file>
+        <file>images/bottomwidget/btn_listrandom (2).png</file>
+        <file>images/bottomwidget/btn_listscircle_single (1).png</file>
+        <file>images/bottomwidget/btn_listscircle_single (2).png</file>
+        <file>images/bottomwidget/btn_listsingle (1).png</file>
+        <file>images/bottomwidget/btn_listsingle (2).png</file>
+        <file>images/bottomwidget/btn_lrc (1).png</file>
+        <file>images/bottomwidget/btn_lrc (2).png</file>
+        <file>images/bottomwidget/btn_lrc (3).png</file>
+        <file>images/bottomwidget/btn_lrc (4).png</file>
+        <file>images/bottomwidget/btn_miniplaylist (1).png</file>
+        <file>images/bottomwidget/btn_miniplaylist (2).png</file>
+        <file>images/bottomwidget/btn_miniplaylist (3).png</file>
+        <file>images/bottomwidget/btn_miniplaylist (4).png</file>
+        <file>images/bottomwidget/btn_more (1).png</file>
+        <file>images/bottomwidget/btn_more (2).png</file>
+        <file>images/bottomwidget/btn_more (3).png</file>
+        <file>images/bottomwidget/btn_more (4).png</file>
+        <file>images/bottomwidget/btn_next (1).png</file>
+        <file>images/bottomwidget/btn_next (2).png</file>
+        <file>images/bottomwidget/btn_next (3).png</file>
+        <file>images/bottomwidget/btn_next (4).png</file>
+        <file>images/bottomwidget/btn_previous (1).png</file>
+        <file>images/bottomwidget/btn_previous (2).png</file>
+        <file>images/bottomwidget/btn_previous (3).png</file>
+        <file>images/bottomwidget/btn_previous (4).png</file>
+        <file>images/bottomwidget/btn_vol (1).png</file>
+        <file>images/bottomwidget/btn_vol (2).png</file>
+        <file>images/bottomwidget/btn_vol (3).png</file>
+        <file>images/bottomwidget/btn_vol (4).png</file>
+        <file>images/bottomwidget/btn_pause (1).png</file>
+        <file>images/bottomwidget/btn_pause (2).png</file>
+        <file>images/bottomwidget/btn_pause (3).png</file>
+        <file>images/bottomwidget/btn_pause (4).png</file>
+        <file>images/bottomwidget/btn_play (1).png</file>
+        <file>images/bottomwidget/btn_play (2).png</file>
+        <file>images/bottomwidget/btn_play (3).png</file>
+        <file>images/bottomwidget/btn_play (4).png</file>
+    </qresource>
+    <qresource prefix="/traymenu">
+        <file>images/trayMenu/menu_close.png</file>
+        <file>images/trayMenu/menu_lock.png</file>
+        <file>images/trayMenu/menu_log.png</file>
+        <file>images/trayMenu/menu_lrc.png</file>
+        <file>images/trayMenu/menu_next (1).png</file>
+        <file>images/trayMenu/menu_next (2).png</file>
+        <file>images/trayMenu/menu_next (3).png</file>
+        <file>images/trayMenu/menu_next (4).png</file>
+        <file>images/trayMenu/menu_pause (1).png</file>
+        <file>images/trayMenu/menu_pause (2).png</file>
+        <file>images/trayMenu/menu_pause (3).png</file>
+        <file>images/trayMenu/menu_pause (4).png</file>
+        <file>images/trayMenu/menu_play (1).png</file>
+        <file>images/trayMenu/menu_play (2).png</file>
+        <file>images/trayMenu/menu_play (3).png</file>
+        <file>images/trayMenu/menu_play (4).png</file>
+        <file>images/trayMenu/menu_previous (1).png</file>
+        <file>images/trayMenu/menu_previous (2).png</file>
+        <file>images/trayMenu/menu_previous (3).png</file>
+        <file>images/trayMenu/menu_previous (4).png</file>
+        <file>images/trayMenu/menu_setting.png</file>
+        <file>images/trayMenu/menu_vol (1).png</file>
+        <file>images/trayMenu/menu_vol (2).png</file>
+        <file>images/trayMenu/menu_vol (3).png</file>
+        <file>images/trayMenu/menu_vol (4).png</file>
+    </qresource>
+    <qresource prefix="/skin">
+        <file>skin/默认.jpg</file>
+    </qresource>
+    <qresource prefix="/">
+        <file>images/ico/setIcon.rc</file>
+        <file>images/ico/QuickTimePlayer32px.ico</file>
+        <file>images/ico/QuickTimePlayer48px.ico</file>
+        <file>images/ico/QuickTimePlayer64px.ico</file>
+    </qresource>
+</RCC>
