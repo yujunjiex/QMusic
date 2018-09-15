@@ -5,4 +5,4 @@
 
 #### 环境:QT5.6.1 MSVC2013
 
-![](.\imageforREADME\1536995408989.png)
+![](./imageforREADME/1536995408989.png)
