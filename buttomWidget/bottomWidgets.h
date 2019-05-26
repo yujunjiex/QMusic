@@ -19,6 +19,8 @@ public:
 
     void init();
 
+    void initConnect();
+
     void setPauseStyle();
 
     void setPlayStyle();
@@ -48,10 +50,13 @@ public:
     QLabel m_labposition;
     TextMovingWidget m_labnowPlayname;
 
+signals:
+    void sig_showPlayingPanel();
 
 public slots:
 
     /*mainslider*/
+    void updateText(int position);
     void updatePosition(qint64 position);
     void updateDuration(qint64 duration);
 private:

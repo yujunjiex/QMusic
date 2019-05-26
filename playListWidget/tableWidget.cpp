@@ -94,6 +94,14 @@ void tableWidget::initMenu()
     connect(act_addsong,SIGNAL(triggered(bool)),this,SIGNAL(sig_addSong()));
     connect(act_del,SIGNAL(triggered(bool)),this,SLOT(slot_removeRow()));
     connect(act_play,SIGNAL(triggered(bool)),this,SLOT(slot_actplay()));
+
+    m_menu.setStyleSheet("QMenu{background-color: white;border: 1px solid rgb(214,214,214);}"
+                    "QMenu::item{height: 28px;padding: 0px 20px 0px 40px;font-size : 12px;color: rgb(102, 102, 102);font-family: 微软雅黑;}"
+                    "QMenu::item:focus{padding: -1;}"
+                    "QMenu::item:!enabled{color:rgb(150,150,150);}"
+                    "QMenu::item:selected{color: white;background-color: rgb(22, 154, 243);}"
+                    "QMenu::icon{position: absolute;left: 12px;}"
+                    "QMenu::separator{height:1px;background: rgb(209,209,209);margin:4px 0px 4px 0px;}");
 }
 
 void tableWidget::setPlayingRow(int row)
@@ -400,7 +408,7 @@ void tableWidget::slot_menuRequest(QPoint)
 {
     QVector<playListWidget*> &plist=m_middleftStack0->playListWidgetVector();
     int index=0;
-    /*添加到歌单子菜单初始化*/
+    /*添加到歌单子菜单 初始化*/
     foreach (playListWidget *final, plist)
     {
         QAction* act=new QAction(final->ShowButtonName(),&m_Addtoplistmenu);

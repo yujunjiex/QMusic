@@ -12,7 +12,7 @@ baseWidget::baseWidget(QWidget *parent) : QWidget(parent)
 }
 void baseWidget::paintEvent(QPaintEvent *e)
 {
-    /*解决setStyleSheet无效*/
+    /*解决setStyleSheet无效--setbackground*/
     Q_UNUSED(e);
     QStyleOption opt;
     opt.init(this);

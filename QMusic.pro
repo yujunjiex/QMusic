@@ -5,6 +5,7 @@
 #-------------------------------------------------
 
 QT       += core gui sql network multimedia
+CONFIG += c++11
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -35,8 +36,11 @@ include(middleWidget/middleWidget.pri)
 INCLUDEPATH +=$$PWD playListWidget
 include(playListWidget/playListWidget.pri)
 
-INLCUDEPATH +=$$PWD singleApplication
+INCLUDEPATH +=$$PWD singleApplication
 include(singleApplication/qsingleapplication.pri)
+
+INCLUDEPATH +=$$PWD playingWidget
+include(playingWidget/playingWidget.pri)
 
 
 RESOURCES += \

@@ -32,7 +32,7 @@ void middleWidgetLeft::initAnimation()
     m_preindex=-1;
     m_preItem=0;
     m_x=0;
-    m_isAnima=true;
+    m_isAnima=false;
 
     m_animation.setDuration(200);
     m_stackwid.setCurrentIndex(0);
@@ -95,10 +95,10 @@ void middleWidgetLeft::initLayout()
 }
 void middleWidgetLeft::slot_changeButtonSelected(int index)
 {
-    m_isAnima=true;
-    m_animation.setStartValue(m_preindex*m_btn[0]->width());
-    m_animation.setEndValue(index*m_btn[0]->width());
-    m_animation.start();
+//    m_isAnima=true;
+//    m_animation.setStartValue(m_preindex*m_btn[0]->width());
+//    m_animation.setEndValue(index*m_btn[0]->width());
+//    m_animation.start();
 
     for(int i=0;i<4;i++)
     {
@@ -110,7 +110,7 @@ void middleWidgetLeft::slot_changeButtonSelected(int index)
         else
         {
           m_btn[i]->setselected(false);
-          m_btn[i]->setStyleSheet("QPushButton{color:rgb(68,68,68)");
+          m_btn[i]->setStyleSheet("QPushButton{color:rgb(68,68,68);}"); //重置mask
         }
     }
 

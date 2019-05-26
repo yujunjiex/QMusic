@@ -10,6 +10,7 @@
 
 #include "myPushButton.h"
 #include "baseWidget.h"
+#include "PageSearch.h"
 
 
 class middleSearchWidget;
@@ -44,11 +45,10 @@ private:
    bool m_isdrawline;
 
    QStackedWidget m_stackWid;   //
-  // middleSearchWidget m_searchwid;
+//   PageSearch m_searchwid;
    myPushButton m_btnArray[3];  //
    baseWidget m_wid;    //
 
-   middleWidgets *m_middlewidget;
 /*   WebWidget *m_web0;
     WebWidget *m_web1;
     WebWidget *m_web2;

@@ -11,6 +11,7 @@
 #include "middleWidgets.h"
 #include "volsliderwidget.h"
 #include "basewindow.h"
+#include "PagePreviewLyric.h"
 
 class MainWindow : public baseWindow
 {
@@ -23,6 +24,7 @@ public:
     static MainWindow *InitInstance();
 
     void init();
+    void initConn();
     void initMusic();
 
     void UpdateListConn();
@@ -33,6 +35,8 @@ public:
     int curVol();
     void setCurVol(int value);
 
+    QPushButton* getBottomButton(){return &(m_bottomwid.m_btnpicture);}
+
 
 public slots:
     void slot_setPlayerPlayOrPause();
@@ -40,8 +44,12 @@ public slots:
     void slot_mediaStatusChanged(QMediaPlayer::MediaStatus  status);
     void slot_updateInfo();//更新底部buttom
     void slot_setPlayMode();
+    void slot_setPosition(); //中间槽，桥接一下player和slider
+    void slot_apdaterSlider(); //slider的拖动优化
     void updatePlayMode(QMediaPlaylist::PlaybackMode mode);
    // void slot_setPosition();
+
+    void slot_showPlayingPanel();
 
 protected:
     virtual bool eventFilter(QObject *, QEvent *);

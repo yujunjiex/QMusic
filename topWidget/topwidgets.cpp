@@ -12,7 +12,8 @@ TopWidgets::TopWidgets(QWidget *parent):baseWidget(parent)
 void TopWidgets::init()
 {
     setStyleSheet("bottomWidgets{background:transparent;}");
-    setMinimumSize(1000,50); //让右边距显现出来
+    setMaximumHeight(60);
+    setMinimumSize(1000,60); //让右边距显现出来
     setSizePolicy(QSizePolicy::Expanding,QSizePolicy::Fixed);
 
     QHBoxLayout *hmainyout=new QHBoxLayout;

@@ -17,7 +17,13 @@ int main(int argc, char *argv[])
                         "QMenu::icon{position: absolute;left: 12px;}"
                         "QMenu::separator{height:1px;background: rgb(209,209,209);margin:4px 0px 4px 0px;}"
                         "QPushButton:focus{padding: -1;}"
-                        "QLabel:focus{padding: -1;}");
+                        "QLabel:focus{padding: -1;}"
+                        "QWidget{font-family:Microsoft YaHei ;}");
+
+//        "QScrollArea#ScrollLyricPanelScrollArea, QScrollArea#scrollAreaLeftList,QScrollArea#scrollAreaSetting{background-color:rgba(0,0,0,0%);}"
+//        "QScrollArea#scrollAreaLeftList{background-color:#f5f5f7;border-right: 1px solid rgba(33, 33, 33, 33);}"
+
+
 
         MainWindow *w=MainWindow::InitInstance();
         a.w=w;

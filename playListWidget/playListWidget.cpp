@@ -3,6 +3,7 @@
 #include "middleLeftStackWidget0.h"
 #include <QDebug>
 #include <QMediaPlayer>
+#include <QMediaMetaData>
 #include <QPainter>
 #include <QEventLoop>
 #include <QTime>
@@ -180,6 +181,7 @@ void playListWidget::slot_addSong()
 
         QFileInfo info(files[i]);
         QString m_name=info.completeBaseName();
+
 
         //待实现
         //if(!m_playList->m_list.contains(files.value(i)))

@@ -19,10 +19,10 @@ bottomWidgets::bottomWidgets(QWidget *parent): baseWidget(parent)
   , m_labnowPlayname("正在播放:",this)
 {
     init();
+    initConnect();
 
     /*测试*/
-    m_btnpicture.setIcon(QIcon("C:/Users/xh/Desktop/1.jpg"));
-    m_btnpicture.setIconSize(QSize(90,90));
+    setPicture(":/playingwidget/images/playingwidget/AlbumCover1.jpg");
 }
 
 void bottomWidgets::init()
@@ -139,6 +139,13 @@ void bottomWidgets::init()
     setLayout(mainlyout);
 }
 
+void bottomWidgets::initConnect()
+{
+    connect(&m_mainslider,SIGNAL(sliderMoved(int)),this,SLOT(updateText(int)));
+//    connect(&m_btnpicture, SIGNAL(clicked(bool)),this,[=](){emit sig_showPlayingPanel(bool);});
+    connect(&m_btnpicture,&myPushButton::clicked,[=](){emit sig_showPlayingPanel();});
+}
+
 void bottomWidgets::setPauseStyle()
 {
     m_btnPlay.setStyleSheet("QPushButton{border-image:url(:/bottomwidget/images/bottomwidget/btn_pause (1).png);}"
@@ -182,6 +189,14 @@ void bottomWidgets::setPicture(const QString &url)
 {
     m_btnpicture.setIcon(QIcon(url));
     m_btnpicture.setIconSize(QSize(90,90));
+}
+
+void bottomWidgets::updateText(int position)
+{
+    m_mainslider.setValue(position);
+
+    qint64 time = MainWindow::GetInstance()->player()->duration();
+    m_labposition.setText(Time(position)+"/"+Time(time));
 }
 
 void bottomWidgets::updatePosition(qint64 position)

@@ -280,4 +280,14 @@
         <file>images/ico/QuickTimePlayer48px.ico</file>
         <file>images/ico/QuickTimePlayer64px.ico</file>
     </qresource>
+    <qresource prefix="/playingwidget">
+        <file>images/playingwidget/album_background_black_mask.png</file>
+        <file>images/playingwidget/album_background_white_mask.png</file>
+        <file>images/playingwidget/AlbumCover1.jpg</file>
+        <file>images/playingwidget/default_preview_background.png</file>
+        <file>images/playingwidget/netease_disk.png</file>
+        <file>images/playingwidget/netease_tone_arm.png</file>
+        <file>images/playingwidget/btn_pack_back_to_box_black.png</file>
+        <file>images/playingwidget/btn_pack_back_to_box_white.png</file>
+    </qresource>
 </RCC>

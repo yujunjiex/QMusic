@@ -4,6 +4,7 @@
 #include <QDir>
 #include <QPainter>
 #include <QMediaPlaylist>
+#include <QMediaMetaData>
 #include <QDebug>
 
 MainWindow *MainWindow::s_pMainWnd=NULL;
@@ -29,10 +30,13 @@ MainWindow::MainWindow(QWidget *parent)
     m_mainwid.setStyleSheet("QLabel{color:white;}"
                             "QWidget{background:transparent;}"
                             );
-    m_mainwid.setSkin("C:/Users/xh/Desktop/KuGouDemo/image/skin/默认.jpg");
+//    m_mainwid.setSkin("C:/Users/xh/Desktop/KuGouDemo/image/skin/默认.jpg");
+    m_middlewid.onSetMusicLyricPath("F:/CloudMusic/说散就散 - 袁娅维.lrc");
+    m_mainwid.setSkin("E:/QtProject/QMusic/images/background/壁纸02.jpg");
 
-    m_pLefStack0=m_middlewid.m_leftWid.GetStackWid0();
+    m_pLefStack0=m_middlewid.GetStackWid0();
     init();
+    initConn();
     initMusic();
     UpdateListConn();
 }
@@ -49,6 +53,10 @@ void MainWindow::init()
     vlyout->setContentsMargins(0,0,0,0);
     m_mainwid.setLayout(vlyout);
 
+}
+
+void MainWindow::initConn()
+{
     /*init connect*/
     m_sertipswid.hide();
     m_topwid.m_lineEdit.installEventFilter(this);
@@ -63,9 +71,7 @@ void MainWindow::init()
 //    connect(m_volwid.m_slider,SIGNAL(valueChanged(int)),&m_traymenu.m_volWid.m_slider_vol,SLOT(setValue(int)));
 
 
-
     //connect(m_volwid.m_slider,SIGNAL(valueChanged(int)),&m_bottomwid.m_btnvol,SLOT(setButtonPixmap(int)));
-
 }
 
 void MainWindow::initMusic()
@@ -86,13 +92,16 @@ void MainWindow::initMusic()
     connect(&m_bottomwid.m_btnnext,SIGNAL(clicked(bool)),m_pLefStack0,SLOT(slot_btnnextSong()));
     connect(&m_bottomwid.m_btnprevious,SIGNAL(clicked(bool)),m_pLefStack0,SLOT(slot_btnpreSong()));
 
+    connect(&m_bottomwid,SIGNAL(sig_showPlayingPanel()),this,SLOT(slot_showPlayingPanel()));
+
     connect(&m_player,SIGNAL(stateChanged(QMediaPlayer::State)),this,SLOT(slot_playerStatusChanged(QMediaPlayer::State)));
     connect(&m_player,SIGNAL(mediaStatusChanged(QMediaPlayer::MediaStatus)),this,SLOT(slot_mediaStatusChanged(QMediaPlayer::MediaStatus)));
 
     connect(&m_player,SIGNAL(metaDataChanged()),this,SLOT(slot_updateInfo()));
     connect(&m_player,SIGNAL(positionChanged(qint64)),&m_bottomwid,SLOT(updatePosition(qint64)));//播放的位置改变->更新进度条播放位置
     connect(&m_player,SIGNAL(durationChanged(qint64)),&m_bottomwid,SLOT(updateDuration(qint64)));//播放歌曲改变->更新进度条
-    connect(&m_bottomwid.m_mainslider,SIGNAL(sliderMoved(int)),&m_player,SLOT(setPosition(qint64)));//进度条移动->更新音乐的播放位置
+    connect(&m_bottomwid.m_mainslider,SIGNAL(sliderPressed()),this,SLOT(slot_apdaterSlider()));//拖动进度条时->断开部分连接适应拖动操作
+    connect(&m_bottomwid.m_mainslider,SIGNAL(sliderReleased()),this,SLOT(slot_setPosition()));//进度条移动->更新音乐的播放位置
 
 }
 
@@ -118,7 +127,7 @@ void MainWindow::setOriginalStatus()
    // m_bottomwid.slot_setLoveState(false);
 
     //m_traymenu.setCurrentSongName("暂无歌曲");
-    m_bottomwid.setSongName("正在播放: ");
+    m_bottomwid.setSongName("");
     m_bottomwid.m_mainslider.setValue(0);
 }
 
@@ -212,6 +221,19 @@ void MainWindow::slot_setPlayMode()
 
 }
 
+void MainWindow::slot_setPosition()
+{
+    m_player.setPosition(m_bottomwid.m_mainslider.value());
+    connect(&m_player,SIGNAL(positionChanged(qint64)),&m_bottomwid,SLOT(updatePosition(qint64)));//播放的位置改变->更新进度条播放位置
+    connect(&m_player,SIGNAL(durationChanged(qint64)),&m_bottomwid,SLOT(updateDuration(qint64)));//播放歌曲改变->更新进度条
+}
+
+void MainWindow::slot_apdaterSlider()
+{
+    disconnect(&m_player,SIGNAL(positionChanged(qint64)),&m_bottomwid,SLOT(updatePosition(qint64)));//播放的位置改变->更新进度条播放位置
+    disconnect(&m_player,SIGNAL(durationChanged(qint64)),&m_bottomwid,SLOT(updateDuration(qint64)));//播放歌曲改变->更新进度条
+}
+
 void MainWindow::updatePlayMode(QMediaPlaylist::PlaybackMode mode)
 {
         foreach(playListWidget *f,m_pLefStack0->playListWidgetVector())//for midleft0
@@ -221,6 +243,11 @@ void MainWindow::updatePlayMode(QMediaPlaylist::PlaybackMode mode)
 
         /*TODO:for other leftWidget*/
 
+}
+
+void MainWindow::slot_showPlayingPanel()
+{
+    m_middlewid.switchPage(0,1);
 }
 
 //void MainWindow::slot_setPosition()

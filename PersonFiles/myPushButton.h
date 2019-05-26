@@ -17,6 +17,8 @@ class myPushButton : public QPushButton
 public:
     myPushButton(QWidget*parent=0);
     myPushButton(const QString& str,QWidget*parent=0);
+    virtual void enterEvent(QEvent *event){setCursor(QCursor(Qt::PointingHandCursor));QPushButton::enterEvent(event);}
+    virtual void leaveEvent(QEvent *event){unsetCursor();QPushButton::leaveEvent(event);}
 };
 ///////////////////////////////////////////////////////////////////
 class volButton:public QPushButton
