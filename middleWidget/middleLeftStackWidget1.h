@@ -5,6 +5,7 @@
 #include <QWidget>
 #include "baseWidget.h"
 
+///网易云音乐
 class middleLeftStackWidget1:public baseWidget
 {
 

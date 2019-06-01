@@ -11,6 +11,8 @@
 #include "playListWidget.h"
 #include "middleLeftStackWidget0.h"
 #include "middleconvienttwobutton.h"
+#include "middleLeftStackWidget3.h"
+#include "middlewidgetleft.h"
 
 tableWidget::tableWidget(QWidget *parent):QTableWidget(parent)
   ,m_playrow(-1)
@@ -19,6 +21,7 @@ tableWidget::tableWidget(QWidget *parent):QTableWidget(parent)
   ,m_prebgItem(-1)
   ,m_loveNowRow(0)
   ,m_text("")
+  ,isShowTipWid(true)
   ,m_addWid(this)
   ,m_menu(this)
   ,m_Addtoplistmenu("添加到歌单",&m_menu)
@@ -101,7 +104,21 @@ void tableWidget::initMenu()
                     "QMenu::item:!enabled{color:rgb(150,150,150);}"
                     "QMenu::item:selected{color: white;background-color: rgb(22, 154, 243);}"
                     "QMenu::icon{position: absolute;left: 12px;}"
-                    "QMenu::separator{height:1px;background: rgb(209,209,209);margin:4px 0px 4px 0px;}");
+                         "QMenu::separator{height:1px;background: rgb(209,209,209);margin:4px 0px 4px 0px;}");
+}
+
+void tableWidget::ShowOrHideTipWid(bool isshow)
+{
+    if(isshow==true)
+    {
+        isShowTipWid=true;
+        m_addWid.show();
+    }
+    else
+    {
+        isShowTipWid=false;
+        m_addWid.hide();
+    }
 }
 
 void tableWidget::setPlayingRow(int row)
@@ -117,11 +134,40 @@ bool tableWidget::isPlaying(int row)
         return true;
 }
 
+bool tableWidget::isLoved(int row)
+{
+    if(-1==row)  //当row为-1时，判断正在播放的行是否loved
+    {
+        row=m_playrow;
+    }
+    if(m_middleftStack->objectName()=="loveMusic")
+    {
+         return true;
+    }
+    else if(m_middleftStack->objectName()=="localMusic")
+    {
+        QString url=m_finalWidget->getUrlByIndex(row);//当前的url
+        qDebug()<<"url="<<url;
+        qDebug()<<middleLeftStackWidget3::getLoveList()->isContainUrl(url);
+        if(middleLeftStackWidget3::getLoveList()->isContainUrl(url))//如果歌曲存在在我的喜欢列表中 就有Loveed
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+    //TODO:other stack
+
+}
+
 
 void tableWidget::setAutoLayoutSize()
 {
     int minheight=0;
-      foreach(playListWidget *f,m_middleftStack0->playListWidgetVector())
+    //TODO:获得进行删除操作的leftstack
+      foreach(playListWidget *f,m_middleftStack->playListWidgetVector())
       {
           int height=0;
           int btnheight=f->m_Btntable.height();
@@ -130,7 +176,7 @@ void tableWidget::setAutoLayoutSize()
               for(int i=0;i<f->m_table.rowCount();i++)
                   height+=f->m_table.rowHeight(i);
 
-              if(f->m_table.rowCount() == 0)
+              if(f->m_table.rowCount() == 0 && isShowTipWid==true)
                   height=m_addWid.height();
               f->m_table.setMinimumHeight(height);
               f->setMaximumHeight(height+btnheight);
@@ -143,69 +189,66 @@ void tableWidget::setAutoLayoutSize()
               minheight+=(btnheight);
           }
       }
-    m_middleftStack0->GetWidget()->setMinimumHeight(minheight);
+    m_middleftStack->GetWidget()->setMinimumHeight(minheight);
 }
 
 void tableWidget::removeSong(int row, bool setAutoLayout)
 {
-    int curindex=m_playrow;
+    if(middleWidgetLeft::getCurrentPlayingStack()!=m_middleftStack->objectName())//防止removeSong影响其他Stack的逻辑
+    {
+        slot_cellEnter(-1,0);
+        emit sig_delIndex(row);
+        removeRow(row);
+        return;
+    }
 
+    int curindex=currentSongIndex();
+
+    qDebug()<<"删除中:"<<row<<"当前正在播放:"<<curindex;
     if(row<=-1)
         return;
-
-
-    if(row<curindex)
+    if(curindex<row)
     {
-        //由于QMediaPlayer的list会因为removeMedia导致歌曲暂停和跳转(currentIndex改变)
-        //故作此处理//
-        int Position=0;
-        int flag=0;
-        if( MainWindow::GetInstance()->player()->state()==QMediaPlayer::PlayingState)
-        {
-            Position= MainWindow::GetInstance()->player()->position();
-            flag=1;
-        }
-        Position=MainWindow::GetInstance()->player()->position();
-
         slot_cellEnter(-1,0);
-        int Row=MainWindow::GetInstance()->player()->playlist()->currentIndex();
-        m_finalWidget->m_playList.removeMedia(row);
-
-        //myDataBase::deleteSong(m_finalWidget->ShowButtonName(),curindex);
+        emit sig_delIndex(row);
+//        myDataBase::deleteSong(m_finalWidget->ShowButtonName(),row);
         removeRow(row);
-
-        MainWindow::GetInstance()->player()->setPlaylist(&(m_finalWidget->m_playList));
-        MainWindow::GetInstance()->player()->playlist()->setCurrentIndex(Row-1);
-        MainWindow::GetInstance()->player()->setPosition(Position);
-        if(flag)
-            MainWindow::GetInstance()->player()->play();
-
-        int index= m_finalWidget->mediaList()->currentIndex();
-        m_finalWidget->m_table.setPlayingRow(index);
-        m_finalWidget->m_table.setCrossWid(index,0);
-
     }
-    else
+
+    else if(curindex==row)//当行正在播放
+    {
+        if(rowCount()==1)//删除最后一首歌曲
+        {
+            m_finalWidget->stopCurrentSong();
+            emit sig_delIndex(curindex);
+//            myDataBase::deleteSong(m_finalWidget->ShowButtonName(),curindex);
+            removeRow(curindex);
+            m_finalWidget->m_table.setPlayingRow(-1);
+        }
+        else//跳至下一首歌
+        {
+
+            emit sig_delIndex(curindex);
+//            myDataBase::deleteSong(m_finalWidget->ShowButtonName(),curindex);
+            m_finalWidget->m_table.setPlayingRow(curindex+1);
+            m_finalWidget->m_table.setCrossWid(curindex+1,0);
+            removeRow(curindex);
+            PlayControl::slot_btnnextSong();//下一曲
+
+        }
+    }
+    else if(curindex>row)
     {
         slot_cellEnter(-1,0);
-
-        if(row==curindex && row+1!=rowCount())
-            m_finalWidget->m_table.setCrossWid(row+1,0);
-
-        m_finalWidget->m_playList.removeMedia(row);
-        //myDataBase::deleteSong(m_finalWidget->ShowButtonName(),row);
+        emit sig_delIndex(row);
+//        myDataBase::deleteSong(m_finalWidget->ShowButtonName(),row);
         removeRow(row);
-        if(row==curindex && row+1!=rowCount())
-        {
-            int index= m_finalWidget->mediaList()->currentIndex();
-            m_finalWidget->m_table.setPlayingRow(index);
-            m_finalWidget->m_table.setCrossWid(index,0);
-        }
-
+        m_finalWidget->m_table.setPlayingRow(curindex-1);
+        m_finalWidget->m_table.setCrossWid(curindex-1,0);
     }
 
     if(setAutoLayout)
-        setAutoLayoutSize();
+     setAutoLayoutSize();
 }
 
 void tableWidget::setCrossWid(int row, int c)
@@ -272,29 +315,61 @@ void tableWidget::mouseMoveEvent(QMouseEvent *e)
 
 }
 
+void tableWidget::slot_currentlovetrigger()
+{
+    tableWidget *table=(tableWidget*)(&(middleLeftStackWidget3::getLoveList()->m_table));
+    if(m_middleftStack->objectName()=="loveMusic")
+    {
+        table->removeSong(m_playrow,true);  //这里是对当前播放的行做处理
+    }
+    else if(m_middleftStack->objectName()=="localMusic")
+    {
+            QString url=m_finalWidget->getUrlByIndex(m_playrow);//当前的url
+            int loveRow=0;  //我的喜欢列表中的行号
+            if(middleLeftStackWidget3::getLoveList()->isContainUrl(url))//如果歌曲存在在我的喜欢列表中 就有Loveed
+            {
+                loveRow=middleLeftStackWidget3::getLoveList()->getIndexByUrl(url);
+                table->removeSong(loveRow,true);
+            }
+            else
+            {
+
+                QString songname=item(m_playrow,1)->text();
+                QString url=m_finalWidget->getUrlByIndex(m_playrow);
+
+                playListWidget *plove=middleLeftStackWidget3::getLoveList(); //第二个列表中
+
+                plove->addToPlayList(songname,url,m_text.simplified());
+            }
+    }
+}
+
 void tableWidget::slot_btnloveclicked()
 {
-//    tableWidget *table= (tableWidget*)(&m_middleftStack0->playListWidgetVector().last()->m_table);
+    tableWidget *table=(tableWidget*)(&(middleLeftStackWidget3::getLoveList()->m_table));
 
-//    if(!m_groupWid->isLoved())//删除喜爱列表中对应的歌曲
-//    {
-//        table->removeSong(m_loveNowRow,false);
-//    }
-//    else//添加到我的最爱列表
-//    {
-//        QString songname=item(m_prebgItem,1)->text();
-//        QString url=m_finalWidget->getUrlByIndex(m_prebgItem);
+    if(!m_groupWid->isLoved())//删除喜爱列表中对应的歌曲
+    {
+        table->removeSong(m_loveNowRow,true);
+    }
+    else//添加到我的最爱列表
+    {
+        QString songname=item(m_prebgItem,1)->text();
+        QString url=m_finalWidget->getUrlByIndex(m_prebgItem);
 
-//        /*TODO:我的喜爱设为单独列表*/
-//        playListWidget *plove=m_middleftStack0->playListWidgetVector().last(); //第二个列表中
+        playListWidget *plove=middleLeftStackWidget3::getLoveList(); //第二个列表中
 
-//        plove->addToPlayList(songname,url,m_text.simplified());
-//    }
+        plove->addToPlayList(songname,url,m_text.simplified());
+    }
+    if(m_loveNowRow==m_playrow)//在处理完后发信号
+    {
+        emit sig_loveStatusChanged();
+    }
 }
 
 void tableWidget::slot_rowCountChanged()
 {
-    if(rowCount()==0)//如果为空
+    if(rowCount()==0 && isShowTipWid==true)//如果为空
     {
         m_addWid.show();
     }
@@ -350,26 +425,25 @@ void tableWidget::slot_cellEnter(int row, int c)
         {
             m_groupWid=new pushButtonGroupWidget(this);
             m_groupWid->setObjectName(QString::number(row));
+            if(m_middleftStack->objectName()=="loveMusic")
+            {
+                m_groupWid->setLoved();
+                connect(&m_groupWid->m_btnLove,SIGNAL(clicked(bool)),this,SLOT(slot_removeHoverRow()));
+            }
+            else if(m_middleftStack->objectName()=="localMusic")
+            {
+                QString url=m_finalWidget->getUrlByIndex(row);//当前的url
 
-            /*TODO:正在播放时，显示播放button*/
 
+                if(middleLeftStackWidget3::getLoveList()->isContainUrl(url))//如果歌曲存在在我的喜欢列表中 就有Loveed
+                {
 
-//            if(m_middleftStack0->getLoveList() == m_finalWidget)//如果是正在我的最爱列表  全部都是红色的
-//            {
-//                m_groupWid->setLoved();
-//                connect(&m_groupWid->m_btnLove,SIGNAL(clicked(bool)),this,SLOT(slot_removeHoverRow()));
-//            }
-//            else
-//            {
-//                QString url=m_finalWidget->getUrlByIndex(row);//当前的url
-
-//                if(m_middleftStack0->getLoveList()->isContainUrl(url))//如果歌曲存在在我的喜欢列表中 就有Loveed
-//                {
-//                    m_loveNowRow=m_middleftStack0->getLoveList()->getIndexByUrl(url);
-//                    m_groupWid->setLoved();
-//                }
-//                connect(&m_groupWid->m_btnLove,SIGNAL(clicked()),this,SLOT(slot_btnloveclicked()));
-//            }
+                    m_loveNowRow=middleLeftStackWidget3::getLoveList()->getIndexByUrl(url);
+                    m_groupWid->setLoved();
+                }
+                connect(&m_groupWid->m_btnLove,SIGNAL(clicked()),this,SLOT(slot_btnloveclicked()));
+            }
+            //Todo:OTHER Stack
 
             setCellWidget(row,2,m_groupWid);
 
@@ -390,12 +464,14 @@ void tableWidget::slot_cellEnter(int row, int c)
 
 void tableWidget::slot_doublick(int r, int c)
 {
-    Q_UNUSED(c);
     if(rowCount()==0)
         return;
 
     playListWidget::setCurrentList(m_finalWidget); //设置当前列表
-    emit sig_doublick();
+
+    qDebug()<<"当前列表名:"<<m_middleftStack->objectName();
+    middleWidgetLeft::setCurrentPlayingStack(m_middleftStack->objectName());
+    emit sig_doubleclicked();  //刷新其他的cell用
     setPlayingRow(r);
 
     slot_cellEnter(-1,0);//刷新cell
@@ -406,7 +482,7 @@ void tableWidget::slot_doublick(int r, int c)
 
 void tableWidget::slot_menuRequest(QPoint)
 {
-    QVector<playListWidget*> &plist=m_middleftStack0->playListWidgetVector();
+    QVector<playListWidget*> &plist=m_middleftStack->playListWidgetVector();
     int index=0;
     /*添加到歌单子菜单 初始化*/
     foreach (playListWidget *final, plist)
@@ -442,7 +518,7 @@ void tableWidget::slot_menuRequest(QPoint)
 
 void tableWidget::slot_moveToPList()
 {
-    QVector<playListWidget*> &plist=m_middleftStack0->playListWidgetVector();
+    QVector<playListWidget*> &plist=m_middleftStack->playListWidgetVector();
     playListWidget* final=plist.value(sender()->objectName().toInt());
 
     //多选歌曲的移动

@@ -82,12 +82,7 @@ void LyricViewer::initLayout()
                         "QLabel#labelPreviewAlbumTip, QLabel#labelPreviewSingerTip{color:#111111;"
                                                                                 "font-size:10pt;}"
                         "QLabel#labelPreviewAlbumPath, QLabel#labelPreviewSingerPath{color:#000000;"
-                                                                                  "font-size:10pt;}"
-                        "QWidget#scrollLyricPanel"
-                        "{"
-                             "margin-right:10px;"
-                             "border-right: 1px solid rgba(100,100,100,25%);"
-                        "}");
+                                                                                  "font-size:10pt;}");
 }
 
 void LyricViewer::initConnection()
@@ -145,12 +140,20 @@ void LyricViewer::setLyricPath(QString path)
 //设置空的歌词
 void LyricViewer::setEmptyLyric()
 {
-    labelPreviewSinger->setText(tr("无"));
+    labelPreviewSinger->setText(tr("未知"));
 
     lrcLyrics.clear();
     scrollLyricPanel->updateLyric(lrcLyrics, true);
 
     bIsLyricValid = false;
+}
+
+void LyricViewer::setOriginStyle()
+{
+    setEmptyLyric();
+    labelPreviewTitle->setText("");
+    labelPreviewAlbum->setText("未知");
+    labelPreviewSinger->setText("未知");
 }
 
 

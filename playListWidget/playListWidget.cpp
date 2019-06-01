@@ -1,6 +1,6 @@
 #include "playListWidget.h"
 #include "mainwindow.h"
-#include "middleLeftStackWidget0.h"
+#include "abstractmiddleleftstackwidget.h"
 #include <QDebug>
 #include <QMediaPlayer>
 #include <QMediaMetaData>
@@ -21,6 +21,7 @@ playListWidget::playListWidget(QWidget *parent):baseWidget(parent)
     //m_playList.setPlaybackMode(QMediaPlaylist::Loop);
     m_table.setTableFinal(this);
     m_Btntable.setTableFinal(this);
+    m_playList.setTableFinal(this);
 
     setMouseTracking(true);
 
@@ -28,12 +29,12 @@ playListWidget::playListWidget(QWidget *parent):baseWidget(parent)
     connect(&m_Btntable,SIGNAL(sig_addSong()),this,SLOT(slot_addSong()));//添加歌曲
     connect(&m_table,SIGNAL(sig_RowCountChange()),&m_Btntable,SLOT(slot_updateSongCount()));//歌曲列表改变信息
     connect(&m_Btntable,SIGNAL(clicked(bool)),this,SLOT(slot_showHideTable()));
-    connect(&m_table,SIGNAL(sig_doublick()),this,SLOT(slot_releaseCrossWid()));
+    connect(&m_table,SIGNAL(sig_doubleclicked()),this,SLOT(slot_releaseCrossWid()));
 
-    //connect(&m_table,SIGNAL(sig_delIndex(int)),&m_playList,SLOT(slot_removeMedia(int)));//从列表中删除
+    connect(&m_table,SIGNAL(sig_delIndex(int)),&m_playList,SLOT(slot_removeSong(int)));//从列表中删除
     connect(&m_table,SIGNAL(sig_addSong()),this,SLOT(slot_addSong()));//添加歌曲
 
-    QVBoxLayout *vlyout1=new QVBoxLayout;
+    QVBoxLayout *vlyout1=new QVBoxLayout();
     setMinimumSize(310,74);
     setMaximumWidth(380);
 
@@ -75,13 +76,17 @@ int playListWidget::currentSongDurationToInt()
 
 void playListWidget::stopCurrentSong()
 {
-    MainWindow::GetInstance()->player()->pause();
+    MainWindow::GetInstance()->player()->stop();
+    m_midleft->setOriginalStatus();
     MainWindow::GetInstance()->player()->setMedia(NULL);
+    /*metaDataChanged是在setMedia中发送的，
+    *metaDataChanged关联UpdateInfo
+    *而UpdateInfo取决于CurrentList，所以要先设置OriginalStatus
+    */
 
-    m_midleft0->setOriginalStatus();
 }
 
-void playListWidget::addToPlayList(const QString &name, const QString &url, const QString &dur, bool /*bAddtoDB*/)
+void playListWidget::addToPlayList(const QString &name, const QString &url, const QString &dur, const QString &strHash, bool /*bAddtoDB*/)
 {
 
     int rowcount= m_table.rowCount();
@@ -93,7 +98,7 @@ void playListWidget::addToPlayList(const QString &name, const QString &url, cons
     m_table.item(rowcount,2)->setTextAlignment(Qt::AlignRight|Qt::AlignVCenter);
 
     /*本地文件的列表添加方式*/
-    m_playList.addMedia(QUrl(url));
+    m_playList.addPlayList(url,strHash);
 
     /*数据库的添加*/
 //    if(bAddtoDB)
@@ -120,13 +125,13 @@ void playListWidget::slot_emptyList()
         int row=m_table.rowCount()-1;
         m_table.slot_cellEnter(-1,0);
         m_table.setCrossWid(-1,0);
-        m_playList.removeMedia(row);
+        emit m_table.sig_delIndex(row);
 
         m_table.removeRow(row);
         ++i;
     }
 
-    m_playList.clear();
+    m_playList.clearMediaList();
     MainWindow::GetInstance()->slot_updateInfo();//更新底部label
     setAutoLayout();
 }
@@ -137,15 +142,15 @@ void playListWidget::slot_showHideTable()
     if(!m_table.isHidden())
     {
         m_table.hide();
-        foreach(playListWidget *f,m_midleft0->playListWidgetVector())
+        foreach(playListWidget *f,m_midleft->playListWidgetVector())
                 f->m_table.hide();
-        //m_midleft0->convientShowTableBtn()->hide();
+        //m_midleft->convientShowTableBtn()->hide();
 
     }
     else
     {
        m_table.show();
-       foreach(playListWidget *f,m_midleft0->playListWidgetVector())
+       foreach(playListWidget *f,m_midleft->playListWidgetVector())
        {
            if(f!=this)//如果显示的话
            {
@@ -158,7 +163,7 @@ void playListWidget::slot_showHideTable()
 void playListWidget::slot_releaseCrossWid()
 {
     update();
-    foreach(playListWidget *f,m_midleft0->playListWidgetVector())
+    foreach(playListWidget *f,m_midleft->playListWidgetVector())
     {
         if(f!=this)
         {
@@ -182,10 +187,8 @@ void playListWidget::slot_addSong()
         QFileInfo info(files[i]);
         QString m_name=info.completeBaseName();
 
-
-        //待实现
-        //if(!m_playList->m_list.contains(files.value(i)))
-        //{
+        if(!m_playList.GetList().contains(files.value(i)))
+        {
             QString filePath=files.value(i);
             player.setMedia(QUrl(filePath));
             ////prevent the loop dont stop
@@ -207,15 +210,15 @@ void playListWidget::slot_addSong()
 
             addToPlayList(m_name,files.at(i),duration);
             setAutoLayout();
-        //}
+        }
     }
 }
 
 void playListWidget::wheelEvent(QWheelEvent *e)
 {
     int i=e->delta()/5;
-    int value=m_midleft0->verticalScrollBar()->value();
-    m_midleft0->verticalScrollBar()->setValue(value-i);
+    int value=m_midleft->verticalScrollBar()->value();
+    m_midleft->verticalScrollBar()->setValue(value-i);
 }
 
 void playListWidget::paintEvent(QPaintEvent *e)

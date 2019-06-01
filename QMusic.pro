@@ -42,6 +42,9 @@ include(singleApplication/qsingleapplication.pri)
 INCLUDEPATH +=$$PWD playingWidget
 include(playingWidget/playingWidget.pri)
 
+INCLUDEPATH +=$$PWD musicPlayer
+include(musicPlayer/musicPlayer.pri)
+
 
 RESOURCES += \
     image.qrc

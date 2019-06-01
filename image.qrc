@@ -185,6 +185,14 @@
         <file>images/middlewidget/unchecked.png</file>
         <file>images/middlewidget/lab_Author.png</file>
         <file>images/middlewidget/sound.png</file>
+        <file>images/middlewidget/lovemusic.png</file>
+        <file>images/middlewidget/lovemusic_gray.png</file>
+        <file>images/middlewidget/netease.png</file>
+        <file>images/middlewidget/netease_gray.png</file>
+        <file>images/middlewidget/QQmusic.png</file>
+        <file>images/middlewidget/QQmusic_gray.png</file>
+        <file>images/middlewidget/localmusic.png</file>
+        <file>images/middlewidget/localmusic_gray.png</file>
     </qresource>
     <qresource prefix="/bottomwidget">
         <file>images/bottomwidget/btn_download (1).png</file>

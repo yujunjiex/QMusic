@@ -14,8 +14,13 @@ class topSearchTipsWidget:public QListWidget
 public:
     explicit topSearchTipsWidget(QWidget*p=0);
 
+    void initConnect();
+
 public slots:
     void slot_textchanged(QString);
+
+    void testClicked();
+
 protected:
     void mouseMoveEvent(QMouseEvent*);
     void leaveEvent(QEvent *);

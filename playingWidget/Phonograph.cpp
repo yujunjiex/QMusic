@@ -55,6 +55,11 @@ bool Phonograph::isPlaying()
     return playing;
 }
 
+void Phonograph::setOriginStyle()
+{
+    setAlbumCover(QPixmap(":/playingwidget/images/playingwidget/AlbumCover1.jpg"));
+}
+
 void Phonograph::paintEvent(QPaintEvent* event)
 {
     QPainter painter(this);

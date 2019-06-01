@@ -6,6 +6,7 @@
 #include "baseWidget.h"
 #include "downloadstackedwidget.h"
 
+///QQ音乐
 class middleLeftStackWidget2:public baseWidget
 {
     Q_OBJECT

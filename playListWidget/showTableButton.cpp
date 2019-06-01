@@ -11,7 +11,9 @@ showTableButton::showTableButton(QWidget *parent):QPushButton(parent)
   ,m_indicator(this)
   ,m_lineEdit(this)
   ,m_playlistName("新建列表[]",this)
-  ,m_btncover(this)
+//  ,m_btncover(this)
+  ,isShowMenu(true)
+  ,isShowCoverMenu(true)
 {
     init();
     initMenu();
@@ -114,12 +116,29 @@ void showTableButton::setTableShowIndicator(bool bShow)
     }
 }
 
+void showTableButton::ShowOrHideMenu(bool isShow)
+{
+    if(isShow==false)
+        isShowMenu=false;
+
+    else
+        isShowMenu=true;
+}
+
+void showTableButton::ShowOrHideCoverMenu(bool isShow)
+{
+    if(isShow==false)
+        isShowCoverMenu=false;
+    else
+        isShowCoverMenu=true;
+}
+
 void showTableButton::setEnabledMenuItem(bool isSetting)
 {
-//    m_cover.actionAt(QPoint(5,85))->setEnabled(m_iscover);
+//    m_cover.actionAt(QPoint(5,85))->setEnabled(isSetting);
 
-//    m_menu.actionAt(QPoint(5,309))->setEnabled(isSetting);//del
-//    m_menu.actionAt(QPoint(5,337))->setEnabled(isSetting);//rename
+    m_menu.actionAt(QPoint(5,122))->setEnabled(isSetting);//del
+    m_menu.actionAt(QPoint(5,150))->setEnabled(isSetting);//rename
 
 }
 
@@ -176,11 +195,11 @@ void showTableButton::mouseReleaseEvent(QMouseEvent *e)
 {
     if(e->button()==Qt::RightButton)
     {
-        if(m_btncover.contentsRect().contains(mapFromGlobal(QCursor::pos())))
+        if(m_btncover.contentsRect().contains(mapFromGlobal(QCursor::pos())) && true==isShowCoverMenu)
         {
             m_cover.exec(QCursor::pos());
         }
-        else
+        else if(true==isShowMenu)
          m_menu.exec(QCursor::pos());
     }
     QPushButton::mouseReleaseEvent(e);

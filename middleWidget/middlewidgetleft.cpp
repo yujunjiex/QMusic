@@ -7,6 +7,9 @@
 #include <QScrollBar>
 
 
+QString middleWidgetLeft::currentPlayingStack = "";
+QMap<QString,AbstractMiddleLeftStackWidget*> middleWidgetLeft::stackMap;
+
 middleWidgetLeft::middleWidgetLeft(QWidget *parent)
     : baseWidget(parent)
     , m_Swidget0(this)
@@ -23,9 +26,26 @@ middleWidgetLeft::middleWidgetLeft(QWidget *parent)
     setMinimumHeight(570);
     setSizePolicy(QSizePolicy::MinimumExpanding,QSizePolicy::Expanding);
 
+    init();
     initLayout();
     initAnimation();
     m_btn[0]->setStyleSheet("QPushButton{border-image: url(:/middlewidget/images/middlewidget/btn_mask.png);}");
+}
+
+void middleWidgetLeft::init()
+{
+    //init map
+    stackMap.insert("localMusic",&m_Swidget0);
+//    stackMap.insert("neteaseMusic",&m_Swidget1);
+//    stackMap.insert("qqMusic",&m_Swidget2);
+    stackMap.insert("loveMusic",&m_Swidget3);
+
+    //init vector
+    stackVector.append(&m_Swidget0);
+//    stackVector.append(&m_Swidget1);
+//    stackVector.append(&m_Swidget2);
+    stackVector.append(&m_Swidget3);
+
 }
 void middleWidgetLeft::initAnimation()
 {
@@ -43,6 +63,32 @@ void middleWidgetLeft::initAnimation()
     m_Widanimation.setDuration(200);
 }
 
+void middleWidgetLeft::setCurrentPlayingStack(const QString &string)
+{
+    if(string!=currentPlayingStack)
+    {
+//        emit sig_stackChanged();
+        currentPlayingStack=string;
+        releaseCrossWid();
+    }
+}
+
+void middleWidgetLeft::releaseCrossWid()
+{
+    //根据QMap和currentPlayingStack去调用其他stack的releaseAllCrossWid
+    QMapIterator<QString, AbstractMiddleLeftStackWidget*> i(stackMap);
+    while (i.hasNext()) {
+        i.next();
+
+        if(i.key()!=currentPlayingStack)
+        {
+            qDebug() << i.key() <<"被release了"<< endl;
+            i.value()->releaseAllCrossWid();
+        }
+    }
+
+}
+
 
 void middleWidgetLeft::initLayout()
 {
@@ -58,15 +104,20 @@ void middleWidgetLeft::initLayout()
     m_stackwid.setContentsMargins(0,0,0,0);
 
 
-    m_btn[0]=new stackButton(":/middlewidget/images/middlewidget/btn_music (1).png",":/middlewidget/images/middlewidget/btn_music (2).png",":/middlewidget/images/middlewidget/btn_music (3).png",this);
-    m_btn[1]=new stackButton(":/middlewidget/images/middlewidget/btn_cloud (1).png",":/middlewidget/images/middlewidget/btn_cloud (2).png",":/middlewidget/images/middlewidget/btn_cloud (3).png",this);
-    m_btn[2]=new stackButton(":/middlewidget/images/middlewidget/btn_download (1).png",":/middlewidget/images/middlewidget/btn_download (2).png",":/middlewidget/images/middlewidget/btn_download (3).png",this);
-    m_btn[3]=new stackButton(":/middlewidget/images/middlewidget/btn_phone (1).png",":/middlewidget/images/middlewidget/btn_phone (2).png",":/middlewidget/images/middlewidget/btn_phone (3).png",this);
+    m_btn[0]=new stackButton(":/middlewidget/images/middlewidget/localmusic_gray.png",":/middlewidget/images/middlewidget/localmusic.png",":/middlewidget/images/middlewidget/localmusic.png",this);
+    m_btn[1]=new stackButton(":/middlewidget/images/middlewidget/netease_gray.png",":/middlewidget/images/middlewidget/netease.png",":/middlewidget/images/middlewidget/netease.png",this);
+    m_btn[2]=new stackButton(":/middlewidget/images/middlewidget/QQmusic_gray.png",":/middlewidget/images/middlewidget/QQmusic.png",":/middlewidget/images/middlewidget/QQmusic.png",this);
+    m_btn[3]=new stackButton(":/middlewidget/images/middlewidget/lovemusic_gray.png",":/middlewidget/images/middlewidget/lovemusic.png",":/middlewidget/images/middlewidget/lovemusic.png",this);
 
     m_btn[0]->setFixedHeight(40);
     m_btn[1]->setFixedHeight(40);
     m_btn[2]->setFixedHeight(40);
     m_btn[3]->setFixedHeight(40);
+
+    m_btn[0]->setToolTip("本地音乐");
+    m_btn[1]->setToolTip("网易云音乐");
+    m_btn[2]->setToolTip("QQ音乐");
+    m_btn[3]->setToolTip("我的最爱");
 
     QHBoxLayout *hlyout=new QHBoxLayout;
     hlyout->addWidget(m_btn[0]);
@@ -92,6 +143,7 @@ void middleWidgetLeft::initLayout()
 
     m_stackwid.setCurrentIndex(0);//选中第一个stackwidget
     m_btn[0]->setselected(true); //设置
+    currentPlayingStack = "localmusic";
 }
 void middleWidgetLeft::slot_changeButtonSelected(int index)
 {

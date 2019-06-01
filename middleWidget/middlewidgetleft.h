@@ -5,6 +5,7 @@
 #include <QWidget>
 #include <QStackedWidget>
 #include <QPropertyAnimation>
+#include <QMap>
 
 #include "baseWidget.h"
 #include "myPushButton.h"
@@ -12,7 +13,7 @@
 #include "middleLeftStackWidget1.h"
 #include "middleLeftStackWidget2.h"
 #include "middleLeftStackWidget3.h"
-
+#include "abstractmiddleleftstackwidget.h"
 
 
 class middleWidgetLeft : public baseWidget
@@ -22,8 +23,9 @@ class middleWidgetLeft : public baseWidget
 public:
     explicit middleWidgetLeft(QWidget *parent = 0);
 
-    middleLeftStackWidget0* GetStackWid0(){return &m_Swidget0;}
+    QVector<AbstractMiddleLeftStackWidget*> & stackWidgetVector(){return stackVector;}
 
+    void init();
     void initLayout();
     void initAnimation();
 
@@ -31,10 +33,18 @@ public:
     void animation(int i){m_x=i;update();}
     void setDrawVerticalLine(bool is=true){m_isDrawVerticalLine=is;}
 
+    static QString getCurrentPlayingStack(){return currentPlayingStack;}
+    static void setCurrentPlayingStack(const QString&string);
+
+    static void releaseCrossWid(); //释放其他stack的cell
+
 protected:
     void paintEvent(QPaintEvent *);
 
     void resizeEvent(QResizeEvent*);
+
+signals:
+    void sig_stackChanged();
 
 private slots:
     void slot_btn();
@@ -58,6 +68,11 @@ private:
     QPropertyAnimation m_animation;
     QPropertyAnimation m_Widanimation;
 
+    static QString currentPlayingStack;
+
+    //创建一个QMap<QString,abstractMiddleLeftStackWidget>
+    static QMap<QString,AbstractMiddleLeftStackWidget*> stackMap;
+    QVector<AbstractMiddleLeftStackWidget*> stackVector;
 };
 
 

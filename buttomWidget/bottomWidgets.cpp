@@ -17,12 +17,13 @@ bottomWidgets::bottomWidgets(QWidget *parent): baseWidget(parent)
   , m_mainslider(Qt::Horizontal,this)
   , m_labposition("00:00/00:00",this)
   , m_labnowPlayname("正在播放:",this)
+  , mode(PlayMode::playInOrder)
 {
     init();
     initConnect();
 
     /*测试*/
-    setPicture(":/playingwidget/images/playingwidget/AlbumCover1.jpg");
+    setOriginStyle();
 }
 
 void bottomWidgets::init()
@@ -46,8 +47,10 @@ void bottomWidgets::init()
                                  "QPushButton::hover{border-image:url(:/bottomwidget/images/bottomwidget/btn_previous (2).png);}"
                                  "QPushButton::pressed{border-image:url(:/bottomwidget/images/bottomwidget/btn_previous (3).png);}");
     m_btnPlay.setStyleSheet("QPushButton{border-image:url(:/bottomwidget/images/bottomwidget/btn_pause (1).png);}"
-                             "QPushButton::hover{border-image:url(:/bottomwidget/images/bottomwidget/btn_pause (2).png);}"
-                             "QPushButton::pressed{border-image:url(:/bottomwidget/images/bottomwidget/btn_pasue (3).png);}");
+                            "QPushButton::hover{border-image:url(:/bottomwidget/images/bottomwidget/btn_pause (2).png);}"
+                            "QPushButton::pressed{border-image:url(:/bottomwidget/images/bottomwidget/btn_pause (3).png);}");
+
+
 
     layout->addWidget(&m_btnprevious);
     layout->addWidget(&m_btnPlay);
@@ -113,8 +116,7 @@ void bottomWidgets::init()
                             "QPushButton::pressed{background-image:url(:/bottomwidget/images/bottomwidget/btn_miniplaylist (3).png);}");
 
      m_btnplaymode.setStyleSheet("QPushButton{border-image:url(:/bottomwidget/images/bottomwidget/btn_listcircle (1).png);}"
-                            "QPushButton::hover{border-image:url(:/bottomwidget/images/bottomwidget/btn_listcircle (2).png);}"
-                            );
+                                 "QPushButton:hover{border-image:url(:/bottomwidget/images/bottomwidget/btn_listcircle (2).png);}");
 
      m_btnfavorite.setStyleSheet("QPushButton{border-image:url(:/bottomwidget/images/bottomwidget/btn_favorite_no (1).png);}"
                             "QPushButton::hover{border-image:url(:/bottomwidget/images/bottomwidget/btn_favorite_no (2).png);}"
@@ -144,6 +146,7 @@ void bottomWidgets::initConnect()
     connect(&m_mainslider,SIGNAL(sliderMoved(int)),this,SLOT(updateText(int)));
 //    connect(&m_btnpicture, SIGNAL(clicked(bool)),this,[=](){emit sig_showPlayingPanel(bool);});
     connect(&m_btnpicture,&myPushButton::clicked,[=](){emit sig_showPlayingPanel();});
+    connect(&m_btnfavorite,&myPushButton::clicked,[=](){emit sig_favoriteClicked();});
 }
 
 void bottomWidgets::setPauseStyle()
@@ -171,24 +174,59 @@ void bottomWidgets::setRandomStyle()
 {
     m_btnplaymode.setStyleSheet("QPushButton{border-image:url(:/bottomwidget/images/bottomwidget/btn_listrandom (1).png);}"
                                  "QPushButton:hover{border-image:url(:/bottomwidget/images/bottomwidget/btn_listrandom (2).png);}");
+    mode = PlayMode::playRandom;
 }
 
 void bottomWidgets::setInOrderStyle()
 {
     m_btnplaymode.setStyleSheet("QPushButton{border-image:url(:/bottomwidget/images/bottomwidget/btn_listcircle (1).png);}"
                                  "QPushButton:hover{border-image:url(:/bottomwidget/images/bottomwidget/btn_listcircle (2).png);}");
+    mode = PlayMode::playInOrder;
 }
 
 void bottomWidgets::setOneCycleStyle()
 {
     m_btnplaymode.setStyleSheet("QPushButton{border-image:url(:/bottomwidget/images/bottomwidget/btn_listscircle_single (1).png);}"
                                  "QPushButton:hover{border-image:url(:/bottomwidget/images/bottomwidget/btn_listscircle_single (2).png);}");
+    mode = PlayMode::playOneCircle;
+}
+
+void bottomWidgets::setOriginStyle()
+{
+    setPicture(":/playingwidget/images/playingwidget/AlbumCover1.jpg");
+    setSongName("");
+    m_labposition.setText("00:00/00:00");
+    setFavorite(false);
 }
 
 void bottomWidgets::setPicture(const QString &url)
 {
     m_btnpicture.setIcon(QIcon(url));
     m_btnpicture.setIconSize(QSize(90,90));
+}
+
+void bottomWidgets::setPicturePixmap(QPixmap pixmap)
+{
+    m_btnpicture.setIcon(QIcon(pixmap));
+    m_btnpicture.setIconSize(QSize(90,90));
+}
+
+void bottomWidgets::setFavorite(bool isFavorite)
+{
+    if (isFavorite==true)
+    {
+        m_btnfavorite.setStyleSheet("QPushButton{border-image:url(:/bottomwidget/images/bottomwidget/btn_favorite_yes (1).png);}"
+                               "QPushButton::hover{border-image:url(:/bottomwidget/images/bottomwidget/btn_favorite_yes (2).png);}"
+                               "QPushButton::pressed{border-image:url(:/bottomwidget/images/bottomwidget/btn_favorite_yes (3).png);}");
+
+    }
+    else
+    {
+        m_btnfavorite.setStyleSheet("QPushButton{border-image:url(:/bottomwidget/images/bottomwidget/btn_favorite_no (1).png);}"
+                               "QPushButton::hover{border-image:url(:/bottomwidget/images/bottomwidget/btn_favorite_no (2).png);}"
+                               "QPushButton::pressed{border-image:url(:/bottomwidget/images/bottomwidget/btn_favorite_no (3).png);}");
+
+    }
 }
 
 void bottomWidgets::updateText(int position)
@@ -199,7 +237,7 @@ void bottomWidgets::updateText(int position)
     m_labposition.setText(Time(position)+"/"+Time(time));
 }
 
-void bottomWidgets::updatePosition(qint64 position)
+void bottomWidgets::updatePosition(int position)
 {
     m_mainslider.setValue(position);
 

@@ -23,6 +23,10 @@ public:
 
     void setTableShowIndicator(bool bShow=true);
 
+    void ShowOrHideMenu(bool isShow=true);
+
+    void ShowOrHideCoverMenu(bool isShow=true);
+
     void setEnabledMenuItem(bool isSetting=false);
 
     void setListName(const QString&strText){m_playlistName.setText(strText);}
@@ -63,7 +67,10 @@ private:
     playListWidget *m_finalWid;
     QLabel m_playlistName;
     myPushButton m_btncover; //列表封面 70*70
-    bool m_iscover;
+//    bool m_iscover;
+
+    bool isShowMenu;
+    bool isShowCoverMenu;
 };
 
 #endif

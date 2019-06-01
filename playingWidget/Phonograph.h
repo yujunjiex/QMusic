@@ -23,6 +23,8 @@ public:
 
     void setBackgroundColor();              //设置背景颜色
 
+    void setOriginStyle();
+
 protected:
     virtual void paintEvent(QPaintEvent* event);
 

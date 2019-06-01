@@ -9,6 +9,7 @@
 #include"myPushButton.h"
 #include"mySlider.h"
 #include"TextMovingWidget.h"
+#include "musicPlayer/myMediaList.h"
 
 
 class bottomWidgets : public baseWidget
@@ -31,9 +32,17 @@ public:
     void setInOrderStyle();
     void setOneCycleStyle();
 
+    void setOriginStyle();
+
     void setSongName(const QString&str){ m_labnowPlayname.setText(QString("正在播放: ")+QString(str));}
 
     void setPicture(const QString&url);
+
+    void setPicturePixmap(QPixmap pixmap);
+
+    void setFavorite(bool);
+
+    PlayMode getPlayMode(){return mode;}
 
     myPushButton m_btnprevious;
     myPushButton m_btnPlay;
@@ -52,15 +61,17 @@ public:
 
 signals:
     void sig_showPlayingPanel();
+    void sig_favoriteClicked();
 
 public slots:
 
     /*mainslider*/
     void updateText(int position);
-    void updatePosition(qint64 position);
+    void updatePosition(int position);
     void updateDuration(qint64 duration);
 private:
     QString Time(qint64 time);//转换时间
+    PlayMode mode;
 
 
 };

@@ -20,6 +20,8 @@ middleWidgets::middleWidgets(QWidget *parent)
     initAnimation();
     initConnection();
 
+    /*test*/
+    onSetPagePreviewOriginStyle();
 }
 
 void middleWidgets::initLayout()
@@ -49,7 +51,7 @@ void middleWidgets::initConnection()
     connect(&animationPreviewExtend, &QPropertyAnimation::finished, this, &middleWidgets::geometryAnimationFinish);
     connect(&animationSettingExtend, &QPropertyAnimation::finished, this, &middleWidgets::geometryAnimationFinish);
 
-   }
+}
 
 
 void middleWidgets::initAnimation()
@@ -73,9 +75,9 @@ void middleWidgets::AnimateFromRectToRect(QPropertyAnimation& animation, QWidget
     animation.start();
 }
 
-middleLeftStackWidget0 *middleWidgets::GetStackWid0()
+middleWidgetLeft *middleWidgets::GetLeftWid()
 {
-    return pageMain->m_leftWid->GetStackWid0();
+    return pageMain->m_leftWid;
 }
 
 void middleWidgets::switchPage(int from, int to)
@@ -166,6 +168,17 @@ void middleWidgets::onSetMusicAlbum(QString album)
 void middleWidgets::onSetMusicLyricPath(QString path)
 {
     pagePreviewLyric->setLyricPath(path);
+}
+
+void middleWidgets::onSetAlbumImage(QPixmap pixmap)
+{
+    pagePreviewLyric->AlbumImageChanged(pixmap);
+}
+
+void middleWidgets::onSetPagePreviewOriginStyle()
+{
+    pagePreviewLyric->lyricViewer->setOriginStyle();
+    pagePreviewLyric->phonagraph->setOriginStyle();
 }
 
 void middleWidgets::resizeEvent(QResizeEvent *event)

@@ -3,6 +3,7 @@
 #include <QDesktopWidget>
 #include "singleApplication/qsingleapplication.h"
 
+#undef main //解决SDL和QT同时定义了main
 int main(int argc, char *argv[])
 {
     QSingleApplication a(argc, argv);

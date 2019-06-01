@@ -14,7 +14,8 @@ $$PWD/singerWidget.cpp \
 $$PWD/rankWidget.cpp \
 $$PWD/middleconvienttwobutton.cpp \
     $$PWD/PageMain.cpp \
-    $$PWD/PageSearch.cpp
+    $$PWD/PageSearch.cpp \
+    $$PWD/abstractMiddleLeftStackWidget.cpp
 
 
 HEADERS +=\
@@ -32,7 +33,8 @@ $$PWD/singerWidget.h \
 $$PWD/rankWidget.h \
 $$PWD/middleconvienttwobutton.h \
     $$PWD/PageMain.h \
-    $$PWD/PageSearch.h
+    $$PWD/PageSearch.h \
+    $$PWD/abstractMiddleLeftStackWidget.h
 
 
 

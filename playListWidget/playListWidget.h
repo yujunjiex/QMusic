@@ -10,9 +10,11 @@
 #include "pushButtonWidget.h"
 #include "showTableButton.h"
 #include "tableWidget.h"
+#include "musicPlayer/myMediaList.h"
 
-class middleLeftStackWidget0;
+class AbstractMiddleLeftStackWidget;
 class middleWidgetLeft;
+class middleLeftStackWidget3;
 
 class playListWidget:public baseWidget
 {
@@ -26,12 +28,12 @@ public:
     static void setCurrentList(playListWidget*pList){s_pCurList=pList;}
 
 /*pass the pointer*/
-    void setMiddleStackWidget0(middleLeftStackWidget0*p){m_midleft0=p;m_table.setMiddleStackWidget0(p);}
+    void setMiddleStackWidget(AbstractMiddleLeftStackWidget*p){m_midleft=p;m_table.setMiddleStackWidget(p);}
 
 /*other functions*/
     void setShowButtonName(QString strListName="新建列表"){m_Btntable.setListName(strListName);}
 
-    void setPlayMode(QMediaPlaylist::PlaybackMode mode){m_playList.setPlaybackMode(mode);}
+    void setPlayMode(PlayMode mode){m_playList.setPlayMode(mode);}
 
     void setCurrentSongAlbumPic(const QString &strPath);
 
@@ -39,7 +41,7 @@ public:
 //////////////////////////////[0]playing widget operation
 
     /*for底部widget的love点击，改写为正在播放item的love click
-     * //模拟鼠标移动到播放中的item，
+     *
      */
     //playingWidget *getPlayingWidget(){return &m_table.m_playingWid;}
 
@@ -56,26 +58,27 @@ public:
 
     //void getlistfromDateBase();
 
-    void addToPlayList(const QString &name, const QString &url, const QString &dur, bool bAddtoDB=true);
+    void addToPlayList(const QString &name, const QString &url, const QString &dur, const QString &strHash="", bool bAddtoDB=true);
 
     void updateCount(){m_Btntable.slot_updateSongCount();}
 
 
 ////////////////////////////////[2]playList operation
-    QMediaPlaylist *mediaList(){return &m_playList;}
+    myMediaList *mediaList(){return &m_playList;}
 
-    /*重写*/
-    //bool isContainUrl(const QString&strUrl){return m_playList.GetList().contains(strUrl);}
+    bool isContainUrl(const QString&strUrl){return m_playList.GetList().contains(strUrl);}
 
-//    int getIndexByUrl(const QString &strUrl){return m_playList.GetList().indexOf(strUrl);}
-//    QString getUrlByIndex(int index){return m_playList.GetList().value(index);}
+    QString getUrlByIndex(int index){return m_playList.GetList().value(index);}
+
+    int getIndexByUrl(const QString &strUrl){return m_playList.GetList().indexOf(strUrl);}
+
 //    QString getHashByUrl(const QString &strUrl){return m_playList.GetHashMap().value(strUrl);}
 //////////////////////////////////////[3]
 
     showTableButton m_Btntable;
     tableWidget m_table;
-    QMediaPlaylist m_playList;
-    middleLeftStackWidget0 *m_midleft0;
+    myMediaList m_playList;
+    AbstractMiddleLeftStackWidget *m_midleft;
 
 public slots:
     void slot_emptyList();
@@ -84,7 +87,7 @@ public slots:
 
     void slot_addSong();
 
-    void slot_releaseCrossWid();
+    void slot_releaseCrossWid();//释放除了本身m_table的其他playListWidget的cell
 
     /*TODO:after finished SearchTable*/
 //    void slot_addSongFromSearchTable(const QStringList& name,const QStringList &url,const QStringList &dur);

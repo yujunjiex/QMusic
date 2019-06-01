@@ -11,8 +11,9 @@
 #include "pushButtonWidget.h"
 #include "addTipWidget.h"
 
-class middleLeftStackWidget0;
+class AbstractMiddleLeftStackWidget;
 class playListWidget;
+class middleLeftStackWidget3;
 
 class tableWidget : public QTableWidget
 {
@@ -23,12 +24,15 @@ public:
      void init();
      void initMenu();
 
+     void ShowOrHideTipWid(bool);
      void setPlayingRow(int row);
      bool isPlaying(int row);
 
+     bool isLoved(int row); //该行是否在喜欢列表中,row的默认值为m_playrow
+
 /*pass the pointer*/
      void setTableFinal(playListWidget *f){m_finalWidget=f;}
-     void setMiddleStackWidget0(middleLeftStackWidget0*p){m_middleftStack0=p;}
+     void setMiddleStackWidget(AbstractMiddleLeftStackWidget*p){m_middleftStack=p;}
 
 /*other functions*/
      const QString getHoverDuration(){return m_text;}
@@ -40,6 +44,8 @@ public:
      void removeSong(int row,bool setAutoLayout=true);
 
      void setCrossWid(int,int);
+
+     int currentSongIndex(){return m_playrow;}
 
      int m_playrow; //当前正在播放的row
      int m_preplayrow;
@@ -57,8 +63,9 @@ protected:
 
 public slots:
 
-     /*待实现*/
-     void slot_btnloveclicked();
+     void slot_currentlovetrigger();//底部点击love按钮时
+
+     void slot_btnloveclicked();//localMusic调用
 
      void slot_rowCountChanged();
      void slot_actplay();
@@ -72,10 +79,11 @@ public slots:
      void slot_moveToPList();//移动歌曲到歌单
 
 signals:
-     void sig_setLoveState(bool);
+     void sig_loveStatusChanged();
 
      void sig_play(int);
-     void sig_doublick();
+     void sig_doubleclicked();
+     void sig_delIndex(int);
 
      void sig_addSong();
 
@@ -86,6 +94,7 @@ private:
 
      QString m_text;//歌曲时长
 
+     bool isShowTipWid;
      addTipWidget m_addWid;
      QMenu m_menu;
      QMenu m_Addtoplistmenu;
@@ -94,7 +103,7 @@ private:
      pushButtonGroupWidget *m_groupWid;
 
      playListWidget *m_finalWidget;
-     middleLeftStackWidget0 *m_middleftStack0;
+     AbstractMiddleLeftStackWidget *m_middleftStack;
 };
 
 

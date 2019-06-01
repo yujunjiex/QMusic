@@ -7,6 +7,7 @@
 #include<QDebug>
 topSearchTipsWidget::topSearchTipsWidget(QWidget*p)
     :QListWidget(p)
+    ,prerow(-1)
     ,m_manger(this)
 {
 
@@ -20,7 +21,13 @@ topSearchTipsWidget::topSearchTipsWidget(QWidget*p)
     setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);//垂直scrollbar禁用
     setSelectionBehavior ( QAbstractItemView::SelectRows); //设置选择行为，以行为单位
     setSelectionMode ( QAbstractItemView::NoSelection);//单选
-    prerow=-1;
+
+    initConnect();
+}
+
+void topSearchTipsWidget::initConnect()
+{
+    connect(this,SIGNAL(itemClicked(QListWidgetItem *)),this,SLOT(testClicked()));
 }
 
 void topSearchTipsWidget::mouseMoveEvent(QMouseEvent*e)
@@ -103,3 +110,9 @@ void topSearchTipsWidget::slot_textchanged(QString str)
     }
     reply->deleteLater();
 }
+
+void topSearchTipsWidget::testClicked()
+{
+    qDebug()<<"已经选中了";
+}
+

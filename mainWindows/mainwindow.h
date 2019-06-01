@@ -2,8 +2,6 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
-#include <QMediaPlayer>
-#include <QMediaPlaylist>
 #include "bottomWidgets.h"
 #include "topwidgets.h"
 #include "topSearchTipsWidget.h"
@@ -12,6 +10,8 @@
 #include "volsliderwidget.h"
 #include "basewindow.h"
 #include "PagePreviewLyric.h"
+#include "musicPlayer/musicPlayer.h"
+#include "musicPlayer/playControl.h"
 
 class MainWindow : public baseWindow
 {
@@ -29,7 +29,7 @@ public:
 
     void UpdateListConn();
 
-    QMediaPlayer* player(){return &m_player;}
+    MusicPlayer* player(){return m_player;}
     void setOriginalStatus();
 
     int curVol();
@@ -39,17 +39,27 @@ public:
 
 
 public slots:
+    void onAudioPlay();
+    void onAudioPause();
+    void onAudioFinish(bool);
+    void musicPositionChanged(int pos); //更新歌词滚动
     void slot_setPlayerPlayOrPause();
-    void slot_playerStatusChanged(QMediaPlayer::State status);
-    void slot_mediaStatusChanged(QMediaPlayer::MediaStatus  status);
+
     void slot_updateInfo();//更新底部buttom
     void slot_setPlayMode();
     void slot_setPosition(); //中间槽，桥接一下player和slider
     void slot_apdaterSlider(); //slider的拖动优化
-    void updatePlayMode(QMediaPlaylist::PlaybackMode mode);
+    void updatePlayMode(PlayMode mode);
    // void slot_setPosition();
 
-    void slot_showPlayingPanel();
+    void slot_showPlayingPanel();//底部封面点击
+    void slot_favoriteclicked();//底部love点击
+    void slot_loveStateChanged();//通知底部love更新
+
+    void slot_SetMusicTitle(QString);
+    void slot_SetMusicArtist(QString);
+    void slot_SetMusicAlbum(QString);
+    void slot_SetMusicPicture(QPixmap);
 
 protected:
     virtual bool eventFilter(QObject *, QEvent *);
@@ -58,7 +68,7 @@ protected:
 
 private:
 
-    QMediaPlayer m_player;
+    MusicPlayer *m_player;
     TopWidgets m_topwid;
     topSearchTipsWidget m_sertipswid;
 
@@ -67,7 +77,9 @@ private:
     bottomWidgets m_bottomwid;
     middleWidgets m_middlewid;
 
-    middleLeftStackWidget0* m_pLefStack0;
+    middleWidgetLeft* m_leftWidget;
+
+    PlayControl playcontrol;
 };
 
 #endif // MAINWINDOW_H

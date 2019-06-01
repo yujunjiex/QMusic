@@ -16,6 +16,7 @@
 #include <QVector>
 #include <QPair>
 #include <QFontMetrics>
+#include "myscrollarea.h"
 
 #include "ScaleUtil.h"
 
@@ -29,7 +30,7 @@ public:
         lrcLyrics.clear();
         currentLine = -1;
 
-        QColor lightWhite("#999999");
+        QColor lightWhite("#343434");
         normalColor = lightWhite;
     }
 
@@ -168,7 +169,7 @@ public:
         lyricPanel->setMinimumHeight(height);
         lyricPanel->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
 
-        scrollArea = new QScrollArea(this);
+        scrollArea = new myScrollArea(this);
         scrollArea->setObjectName("ScrollLyricPanelScrollArea");
         //scrollArea->setStyleSheet("QScrollArea{background-color:#00000000;}");
 
@@ -182,7 +183,7 @@ public:
         layout->addWidget(scrollArea);
 
         scrollTimer = new QTimer(this);
-        scrollTimer->setInterval(1);
+        scrollTimer->setInterval(100);  //歌词滚动的判定间隔
 
         nMin = 0;
         nMax = 0;
@@ -276,7 +277,7 @@ private slots:
 
 public:
     LyricPanel*         lyricPanel;
-    QScrollArea *       scrollArea;
+    myScrollArea *       scrollArea;
     QScrollBar*         scrollbar ;
 
     QTimer*             scrollTimer;        //滚动用的定时器
@@ -309,6 +310,8 @@ public slots:
 
     void setLyricPath(QString path);    //设置歌词
     void setEmptyLyric();           //设置空的歌词
+
+    void setOriginStyle();
 
 
     void  skinNameChanged(QString skinName);
