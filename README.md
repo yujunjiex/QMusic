@@ -1,11 +1,9 @@
 # QMusic
 
-<p>
-    <a href="https://github.com/yujunjiex/QMusic"><img src="https://img.shields.io/badge/%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83-QT5.6-yellowgreen.svg"></a>
-    <a href=""><img src="https://img.shields.io/badge/%E9%81%B5%E5%BE%AA%E5%8D%8F%E8%AE%AE-MIT-red.svg"></a>
-</p>
-![](./imageforREADME/first.png)
+[![Software License](https://img.shields.io/badge/%E9%81%B5%E5%BE%AA%E5%8D%8F%E8%AE%AE-MIT-red.svg)](<>)
+[![versions](https://img.shields.io/badge/%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83-QT5.6-yellowgreen.svg)](https://github.com/yujunjiex/QMusic/)
 
+![](./imageforREADME/first.png)
 
 ## 前言
 
