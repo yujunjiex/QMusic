@@ -6,6 +6,7 @@
 </p>
 ![](./imageforREADME/first.png)
 
+
 ## 前言
 
 `QMusic`是用QT+python开发的一个音乐播放器，音频解析部分采用的是ffmpeg，融合`网易云`+`QQ音乐`音源的开源项目。
