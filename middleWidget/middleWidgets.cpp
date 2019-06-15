@@ -1,6 +1,6 @@
 #include <QFileInfo>
 #include "middleWidgets.h"
-#include "middlewidgetleft.h"
+#include "middleWidgetLeft.h"
 #include "middleWidgetRight.h"
 #include "mainwindow.h"
 #include "myPushButton.h"

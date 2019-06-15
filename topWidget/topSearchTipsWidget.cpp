@@ -5,6 +5,7 @@
 #include<QEventLoop>
 #include<QLineEdit>
 #include<QDebug>
+
 topSearchTipsWidget::topSearchTipsWidget(QWidget*p)
     :QListWidget(p)
     ,prerow(-1)

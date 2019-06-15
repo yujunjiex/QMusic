@@ -2,7 +2,7 @@
 #include <QVBoxLayout>
 #include <QHBoxLayout>
 #include "ImageFilter.h"
-#include "ScaleUtil.h"
+#include "scaleUtil.h"
 
 //参考：https://blog.csdn.net/caoshangpa/article/details/62421334
 

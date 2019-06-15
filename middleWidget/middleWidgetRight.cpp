@@ -2,7 +2,7 @@
 #include <QHBoxLayout>
 #include <QVBoxLayout>
 #include <QPainter>
-#include <middlewidgetleft.h>
+#include <middleWidgetLeft.h>
 
 #include "myPushButton.h"
 #include "mainwindow.h"
@@ -30,6 +30,8 @@ void middleWidgetRight::init()
     m_stackWid.addWidget(new baseWidget(this));
     m_stackWid.addWidget(new baseWidget(this));
     m_stackWid.addWidget(new baseWidget(this));
+
+    //m_stackWid.addWidget(&m_searchwid);
 
 
 

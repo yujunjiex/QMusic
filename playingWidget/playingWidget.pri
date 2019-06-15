@@ -12,5 +12,5 @@ HEADERS +=\
     $$PWD/ImageFilter.h \
     $$PWD/LyricViewer.h \
     $$PWD/LrcProcessor.h \
-    $$PWD/PagePreviewLyric.h \
+    $$PWD/PagePreviewLyric.h 
 

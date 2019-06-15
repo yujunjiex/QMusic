@@ -1,6 +1,6 @@
 #include "playControl.h"
 #include "playListWidget/playListWidget.h"
-#include "middleWidget/middlewidgetleft.h"
+#include "middleWidget/middleWidgetLeft.h"
 #include "mainWindows/mainwindow.h"
 
 
@@ -8,10 +8,19 @@ void PlayControl::slot_play(int index)
 {
     playListWidget*pPlayList= playListWidget::getCurrentList();
 
-    QUrl url= pPlayList->mediaList()->mediaUrl(index);
+    QUrl url= pPlayList->mediaList()->mediaUrl(index);  //Netease的url不是真实链接,需要发送信号获取
+    if (pPlayList->m_midleft->objectName()=="qqMusic")
+    {
+        QString coverUrl = pPlayList->mediaList()->coverUrl(index);
+        emit pPlayList->m_midleft->sig_requestSongCover(coverUrl);
+        emit pPlayList->m_midleft->sig_requestSongLyric(pPlayList->mediaList()->songID(index));
+    }
     if(!url.isEmpty())
     {
         MainWindow::GetInstance()->player()->setMedia(url.toString());
+//        MainWindow::GetInstance()->player()->setMedia("http://music.163.com/song/media/outer/url?id=347230.mp3");
+//        MainWindow::GetInstance()->player()->setMedia("https://v1.itooi.cn/tencent/url?id=000EIzeR3yqAGP");
+
 //        MainWindow::GetInstance()->player()->play();
         MainWindow::GetInstance()->player()->reload();
     }

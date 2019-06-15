@@ -280,7 +280,9 @@
         <file>images/trayMenu/menu_vol (4).png</file>
     </qresource>
     <qresource prefix="/skin">
-        <file>skin/默认.jpg</file>
+        <file>skin/sky.jpg</file>
+        <file>skin/default.jpg</file>
+        <file>skin/green.jpg</file>
     </qresource>
     <qresource prefix="/">
         <file>images/ico/setIcon.rc</file>

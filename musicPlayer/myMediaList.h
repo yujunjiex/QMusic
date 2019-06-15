@@ -19,11 +19,22 @@ public:
 
     QUrl mediaUrl(int index);//赋值给musicIndex;
 
-    void addPlayList(const QString& url,const QString&hash=""){m_list.append(url);m_hashMap.insert(url,hash);}
+    QString coverUrl(int index);
+
+    QString songID(int index);
+
+    void addPlayList(const QString& url,const QString&coverUrl=""){m_list.append(url);m_urlMap.insert(url,coverUrl);}
+
+    void addPlayList(const QString &url, const QString &coverUrl="", const QString &ID=""){m_list.append(url);
+                                                                                        m_urlMap.insert(url,coverUrl);
+                                                                                        m_idMap.insert(url, ID);
+                                                                                       }
 
     const QList<QString> & GetList(){return m_list;}
 
-    const QMap <QString,QString>& GetHashMap(){return m_hashMap;}
+    const QMap <QString,QString>& GetUrlMap(){return m_urlMap;}
+
+    const QMap <QString, QString>& GetIDMap(){return m_idMap;}
 
     void setPlayMode(PlayMode);
 
@@ -35,7 +46,7 @@ public:
 
     int preMediaIndex();
 
-    void clearMediaList(){m_list.clear();m_hashMap.clear();}
+    void clearMediaList(){m_list.clear();m_urlMap.clear(); m_idMap.clear();}
 
 public Q_SLOTS:
     void slot_removeSong(int index);
@@ -44,7 +55,8 @@ private:
     int indexMode;
     int m_musicIndex;
     QList<QString> m_list;
-    QMap <QString,QString> m_hashMap;
+    QMap <QString,QString> m_urlMap;   //songUrl-coverUrl
+    QMap <QString,QString> m_idMap; //songUrl-songID
     playListWidget *m_pFinal;
 };
 

@@ -320,3 +320,88 @@ void downloadButton::setButtonPixmap(int value)
        m_index=2;
     update();
 }
+//////////////////////////////////////////////////////////////////////
+playingWidgetBtn::playingWidgetBtn(QWidget *p)
+    :myPushButton(p)
+    ,m_text("")
+    ,m_normalcolor(0,0,0)
+    ,m_hovercolor(0,0,0)
+    ,m_isenter(false)
+{
+    setCursor(Qt::ArrowCursor);
+    setMouseTracking(true);
+}
+
+void playingWidgetBtn::paintEvent(QPaintEvent *)
+{
+    QPainter p(this);
+    p.setPen(m_normalcolor);
+    QFontMetrics metrics(font());
+
+    if(m_isenter)
+    {
+        p.setPen(m_hovercolor);
+        QFont f;
+        f.setUnderline(true);
+        p.setFont(f);
+    }
+    p.drawText(0,(height()-metrics.height())/2,width(),metrics.height(),Qt::AlignCenter,m_text);
+}
+
+void playingWidgetBtn::mouseMoveEvent(QMouseEvent *e)
+{
+    QPushButton::mouseMoveEvent(e);
+    QFontMetrics metrics(font());
+    QRect re((width()-metrics.width(m_text))/2,(height()-metrics.height())/2,metrics.width(m_text),metrics.height());
+    if(re.contains(e->pos()))
+    {
+       m_isenter=true;
+       QToolTip::showText(QCursor::pos(),m_text);
+       setCursor(Qt::PointingHandCursor);
+    }
+    else
+    {
+        m_isenter=false;
+        setCursor(Qt::ArrowCursor);
+    }
+    update();
+}
+
+void playingWidgetBtn::mousePressEvent(QMouseEvent *e)
+{
+    if(m_isenter)
+      QPushButton::mousePressEvent(e);
+}
+
+void playingWidgetBtn::leaveEvent(QEvent *e)
+{
+    myPushButton::leaveEvent(e);
+    m_isenter=false;
+
+}
+
+void playingWidgetBtn::setNormalColor(const QColor &color)
+{
+    m_normalcolor=color;
+}
+
+void playingWidgetBtn::setHoverColor(const QColor &color)
+{
+    m_hovercolor=color;
+}
+
+void playingWidgetBtn::adjustSize()
+{
+    myPushButton::adjustSize();
+    QFontMetrics metrir(font());
+    int fw= metrir.width(m_text);
+    if(fw>maximumWidth())
+        fw=maximumWidth();
+    setFixedWidth(fw);
+}
+
+void playingWidgetBtn::setText(const QString &text)
+{
+    m_text=text;
+    update();
+}

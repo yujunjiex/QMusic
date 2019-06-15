@@ -4,7 +4,7 @@
 #include <QObject>
 #include <QWidget>
 #include "baseWidget.h"
-#include "middlewidgetleft.h"
+#include "middleWidgetLeft.h"
 #include "middleWidgetRight.h"
 #include "PageMain.h"
 #include "PagePreviewLyric.h"

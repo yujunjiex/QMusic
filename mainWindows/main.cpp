@@ -2,6 +2,8 @@
 #include <QApplication>
 #include <QDesktopWidget>
 #include "singleApplication/qsingleapplication.h"
+#include "PersonFiles/scaleUtil.h"
+#include "netWork/QQ.h"
 
 #undef main //解决SDL和QT同时定义了main
 int main(int argc, char *argv[])
@@ -28,14 +30,21 @@ int main(int argc, char *argv[])
 
         MainWindow *w=MainWindow::InitInstance();
         a.w=w;
-        double x,y;
-        int currentScreenWid = QApplication::desktop()->width();
-        int currentScreenHei  = QApplication::desktop()->height();
-        x = currentScreenWid/1920.0;
-        y = currentScreenHei/1080.0;
+//        double x,y;
+//        int currentScreenWid = QApplication::desktop()->width();
+//        int currentScreenHei  = QApplication::desktop()->height();
+//        x = currentScreenWid/1920.0;
+//        y = currentScreenHei/1080.0;
 
         w->show();
-        w->setGeometry((QApplication::desktop()->width() - w->width())/2,(QApplication::desktop()->height() - w->height())/2,1320*x,850*y);//居中显示
+        w->setGeometry((QApplication::desktop()->width() - w->width())/2,(QApplication::desktop()->height() - w->height())/2,1320* ScaleUtil::scale(),850* ScaleUtil::scale());//居中显示
+
+//        QQ qq;
+//        //qq.requestPlayList("2058988118");
+//  //      qq.requestSong("周杰伦");
+//        QList<QString> list;
+//        list<<"0039MnYb0qxYhV"<<"001xd0HI0X9GNq";
+//        qq.requestSongsUrl(list);
         return a.exec();
     }
     return 0;

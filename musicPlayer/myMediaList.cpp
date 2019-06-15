@@ -15,8 +15,25 @@ QUrl myMediaList::mediaUrl(int index)
     if(m_list.isEmpty())
     return QUrl("");
      m_musicIndex=index;
-    return m_list.value(index);
+     return m_list.value(index);
 }
+
+QString myMediaList::coverUrl(int index)
+{
+    if(m_list.isEmpty())
+        return "";
+
+    return m_urlMap[m_list.value(index)];
+}
+
+QString myMediaList::songID(int index)
+{
+    if(m_list.isEmpty())
+        return "";
+
+    return m_idMap[m_list.value(index)];
+}
+
 void myMediaList::setPlayMode(PlayMode p)
 {
     if(p==PlayMode::playInOrder)
@@ -69,7 +86,8 @@ int myMediaList::preMediaIndex()//上一曲
 void myMediaList::slot_removeSong(int index)
 {
 
-    m_hashMap.remove(m_list.value(index));
+    m_urlMap.remove(m_list.value(index));
+    m_idMap.remove(m_list.value(index));
     m_list.removeAt(index);
     int Playindex=m_pFinal->m_table.currentSongIndex();
     if(Playindex>=index)

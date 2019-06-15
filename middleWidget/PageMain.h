@@ -4,7 +4,7 @@
 #include <QObject>
 #include <QWidget>
 #include "baseWidget.h"
-#include "middlewidgetleft.h"
+#include "middleWidgetLeft.h"
 #include "middleWidgetRight.h"
 ///包含左右两个主窗体
 

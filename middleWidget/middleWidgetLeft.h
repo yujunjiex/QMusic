@@ -58,6 +58,7 @@ private:
     middleLeftStackWidget0 m_Swidget0;
     middleLeftStackWidget1 m_Swidget1;
     middleLeftStackWidget2 m_Swidget2;
+    middleLeftStackWidgetScrollArea2 *m_widget2; //
     middleLeftStackWidget3 m_Swidget3;
 
     int m_preindex;

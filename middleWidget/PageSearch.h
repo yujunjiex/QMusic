@@ -4,7 +4,7 @@
 #include <QObject>
 #include <QWidget>
 #include "baseWidget.h"
-#include "middlewidgetleft.h"
+#include "middleWidgetLeft.h"
 #include "middleWidgetRight.h"
 ///查询窗体，放在middleWidgetRight中来控制
 

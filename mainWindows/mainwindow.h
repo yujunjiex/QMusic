@@ -25,6 +25,8 @@ public:
 
     void init();
     void initConn();
+    void registerMetaTypes();
+
     void initMusic();
 
     void UpdateListConn();
@@ -60,6 +62,7 @@ public slots:
     void slot_SetMusicArtist(QString);
     void slot_SetMusicAlbum(QString);
     void slot_SetMusicPicture(QPixmap);
+    void slot_SetMusicLyric(QString path){ m_middlewid.onSetMusicLyricPath(path);}
 
 protected:
     virtual bool eventFilter(QObject *, QEvent *);

@@ -15,4 +15,4 @@ HEADERS+=\
         $$PWD/basewindow.h \
 $$PWD/myscrollarea.h \
     $$PWD/volsliderwidget.h \
-    $$PWD/ScaleUtil.h
+    $$PWD/scaleUtil.h

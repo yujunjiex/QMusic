@@ -18,7 +18,7 @@
 #include <QFontMetrics>
 #include "myscrollarea.h"
 
-#include "ScaleUtil.h"
+#include "scaleUtil.h"
 
 class LyricPanel : public QWidget
 {

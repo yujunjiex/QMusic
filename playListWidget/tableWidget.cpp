@@ -12,7 +12,7 @@
 #include "middleLeftStackWidget0.h"
 #include "middleconvienttwobutton.h"
 #include "middleLeftStackWidget3.h"
-#include "middlewidgetleft.h"
+#include "middleWidgetLeft.h"
 
 tableWidget::tableWidget(QWidget *parent):QTableWidget(parent)
   ,m_playrow(-1)
@@ -429,6 +429,10 @@ void tableWidget::slot_cellEnter(int row, int c)
             {
                 m_groupWid->setLoved();
                 connect(&m_groupWid->m_btnLove,SIGNAL(clicked(bool)),this,SLOT(slot_removeHoverRow()));
+
+                setCellWidget(row,2,m_groupWid);
+                m_text=item(row,2)->text();
+                item(row,2)->setText("");//隐藏时间
             }
             else if(m_middleftStack->objectName()=="localMusic")
             {
@@ -442,14 +446,19 @@ void tableWidget::slot_cellEnter(int row, int c)
                     m_groupWid->setLoved();
                 }
                 connect(&m_groupWid->m_btnLove,SIGNAL(clicked()),this,SLOT(slot_btnloveclicked()));
+
+                setCellWidget(row,2,m_groupWid);
+                m_text=item(row,2)->text();
+                item(row,2)->setText("");//隐藏时间
             }
             //Todo:OTHER Stack
+            //其他的暂不开放groupwid功能
+            else{
+                m_text=item(row,2)->text();
+            }
 
-            setCellWidget(row,2,m_groupWid);
 
-            m_text=item(row,2)->text();
 
-            item(row,2)->setText("");//隐藏时间
             QColor hoverbgcolor(180,180,180,50);
 
             this->item(row,0)->setBackgroundColor(hoverbgcolor);

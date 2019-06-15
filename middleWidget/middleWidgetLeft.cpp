@@ -1,4 +1,4 @@
-#include "middlewidgetleft.h"
+#include "middleWidgetLeft.h"
 #include"mainwindow.h"
 
 #include <QVBoxLayout>
@@ -15,6 +15,7 @@ middleWidgetLeft::middleWidgetLeft(QWidget *parent)
     , m_Swidget0(this)
     , m_Swidget1(this)
     , m_Swidget2(this)
+    , m_widget2(nullptr)
     , m_Swidget3(this)
     , m_animation(this,"m_x")
     , m_Widanimation(this,"geometry")
@@ -34,16 +35,18 @@ middleWidgetLeft::middleWidgetLeft(QWidget *parent)
 
 void middleWidgetLeft::init()
 {
+    m_widget2 = m_Swidget2.getStackWid();
+
     //init map
     stackMap.insert("localMusic",&m_Swidget0);
 //    stackMap.insert("neteaseMusic",&m_Swidget1);
-//    stackMap.insert("qqMusic",&m_Swidget2);
+    stackMap.insert("qqMusic",m_widget2);
     stackMap.insert("loveMusic",&m_Swidget3);
 
     //init vector
     stackVector.append(&m_Swidget0);
 //    stackVector.append(&m_Swidget1);
-//    stackVector.append(&m_Swidget2);
+    stackVector.append(m_widget2);
     stackVector.append(&m_Swidget3);
 
 }
@@ -82,7 +85,7 @@ void middleWidgetLeft::releaseCrossWid()
 
         if(i.key()!=currentPlayingStack)
         {
-            qDebug() << i.key() <<"被release了"<< endl;
+//            qDebug() << i.key() <<"被release了"<< endl;
             i.value()->releaseAllCrossWid();
         }
     }

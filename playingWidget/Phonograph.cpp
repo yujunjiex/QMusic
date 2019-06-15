@@ -1,6 +1,6 @@
 ﻿#include "Phonograph.h"
 #include <QPainter>
-#include "ScaleUtil.h"
+#include "scaleUtil.h"
 
 Phonograph::Phonograph(QWidget* parent):QWidget(parent),
     YoffsetOfDisk(76 * ScaleUtil::scale()),

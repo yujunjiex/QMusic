@@ -5,7 +5,7 @@
 #include <QMessageBox>
 #include <QSpacerItem>
 #include "LrcProcessor.h"
-#include "ScaleUtil.h"
+#include "scaleUtil.h"
 
 LyricViewer::LyricViewer(QWidget* parent):QWidget(parent)
 {

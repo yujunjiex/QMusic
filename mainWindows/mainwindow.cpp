@@ -7,6 +7,8 @@
 #include <QMediaPlaylist>
 #include <QMediaMetaData>
 #include <QDebug>
+#include <QMetaType>
+#include "structs.h"
 
 MainWindow *MainWindow::s_pMainWnd=NULL;
 
@@ -34,15 +36,17 @@ MainWindow::MainWindow(QWidget *parent)
                             );
 
     //test
-    m_mainwid.setSkin("C:/Users/xh/Desktop/KuGouDemo/image/skin/默认.jpg");
-    m_middlewid.onSetMusicLyricPath("F:/CloudMusic/可乐-赵紫骅.lrc");
+    m_mainwid.setSkin(":/skin/skin/default.jpg");
+//    m_middlewid.onSetMusicLyricPath("F:/CloudMusic/可乐-赵紫骅.lrc");
 //    m_mainwid.setSkin("E:/QtProject/QMusic/images/background/壁纸02.jpg");
+
 
 
     m_leftWidget=m_middlewid.GetLeftWid();
     m_player = new MusicPlayer(this);
     m_player->setNotifyInterval(33);
 
+    registerMetaTypes();
     init();
     initConn();
     initMusic();
@@ -82,6 +86,21 @@ void MainWindow::initConn()
     //connect(m_volwid.m_slider,SIGNAL(valueChanged(int)),&m_bottomwid.m_btnvol,SLOT(setButtonPixmap(int)));
 }
 
+void MainWindow::registerMetaTypes()
+{
+    //注册自定义数据类型(信号和槽)
+    qRegisterMetaType<QList<ItemResult>>("QList<ItemResult>");
+    qRegisterMetaType<QList<Artists>>("QList<Artists>");
+    qRegisterMetaType<QList<SongItem>>("QList<SongItem>");
+    qRegisterMetaType<LoginStatus>("LoginStatus");
+    qRegisterMetaType<LogoutStatus>("LogoutStatus");
+
+    qRegisterMetaType<QList<PlayList>>("QList<PlayList>");
+    qRegisterMetaType<QList<QString>>("QList<QString>");
+    qRegisterMetaType<QList<PlayList>>("QList<PlayList>");
+    qRegisterMetaType<PlayList>("PlayList");
+}
+
 void MainWindow::initMusic()
 {
     m_bottomwid.m_btnvol.setPartnerSlider(m_volwid.m_slider);
@@ -114,7 +133,7 @@ void MainWindow::initMusic()
     connect(m_player,SIGNAL(positionChanged(int)),this,SLOT(musicPositionChanged(int)));
     connect(m_player,SIGNAL(durationChanged(qint64)),&m_bottomwid,SLOT(updateDuration(qint64)));//播放歌曲改变->更新进度条
 
-    connect(m_player,SIGNAL(titleFound(QString)),this,SLOT(slot_SetMusicTitle(QString)));
+//    connect(m_player,SIGNAL(titleFound(QString)),this,SLOT(slot_SetMusicTitle(QString)));
     connect(m_player,SIGNAL(artistFound(QString)),this,SLOT(slot_SetMusicArtist(QString)));
     connect(m_player,SIGNAL(albumFound(QString)),this,SLOT(slot_SetMusicAlbum(QString)));
     connect(m_player,SIGNAL(pictureFound(QPixmap)),this,SLOT(slot_SetMusicPicture(QPixmap)));

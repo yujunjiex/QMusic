@@ -35,7 +35,9 @@ public:
 
     void setPlayMode(PlayMode mode){m_playList.setPlayMode(mode);}
 
-    void setCurrentSongAlbumPic(const QString &strPath);
+    void setCurrentSongAlbumPic(const QPixmap &pixmap); //更换ablum图片
+
+    void setCurrentSongAlbumPic(const QString &path);
 
     void setAutoLayout();
 //////////////////////////////[0]playing widget operation
@@ -58,7 +60,9 @@ public:
 
     //void getlistfromDateBase();
 
-    void addToPlayList(const QString &name, const QString &url, const QString &dur, const QString &strHash="", bool bAddtoDB=true);
+    void addToPlayList(const QString &name, const QString &url,
+                       const QString &dur, const QString &coverUrl="", const QString &songID="", bool bAddtoDB=true);
+
 
     void updateCount(){m_Btntable.slot_updateSongCount();}
 
@@ -93,6 +97,8 @@ public slots:
 //    void slot_addSongFromSearchTable(const QStringList& name,const QStringList &url,const QStringList &dur);
 
 //    void slot_playSongFromSearchTable(const QStringList &name,const QStringList &url,const QStringList &dur);
+signals:
+
 protected:
     static playListWidget *s_pCurList;
 

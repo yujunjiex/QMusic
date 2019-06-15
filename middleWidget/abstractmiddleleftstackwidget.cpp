@@ -123,17 +123,20 @@ void AbstractMiddleLeftStackWidget::slot_removePlayList()
     setAutoLayout();
 }
 
-void AbstractMiddleLeftStackWidget::addPlayList(const QString &plname)
+playListWidget * AbstractMiddleLeftStackWidget::addPlayList(const QString &plname)
 {
     playListWidget *m_table=new playListWidget(this);
     m_table->setMiddleStackWidget(this);//pass the pointer
     m_table->m_table.hide();
     m_vlyout.insertWidget(m_vlyout.count()-1,m_table);
-    m_Vector.insert(m_Vector.count()-1,m_table);
+    m_Vector.insert(m_Vector.count(),m_table);
     m_table->setShowButtonName(plname);
    // m_table->getlistfromDateBase(); //根据目标名 添加歌曲
     m_table->updateCount();//更新一下
+    if(MainWindow::GetInstance())
+        MainWindow::GetInstance()->UpdateListConn();
     setAutoLayout();
+    return m_table;
 }
 
 void AbstractMiddleLeftStackWidget::slot_addPlayListWithRename()
@@ -158,7 +161,7 @@ void AbstractMiddleLeftStackWidget::slot_addPlayListWithRename()
 
     table->m_table.hide();
     m_vlyout.insertWidget(m_vlyout.count()-1,table);
-    m_Vector.insert(m_Vector.count()-1,table);
+    m_Vector.insert(m_Vector.count(),table);
     table->m_Btntable.click();
     if(MainWindow::GetInstance())
         MainWindow::GetInstance()->UpdateListConn();

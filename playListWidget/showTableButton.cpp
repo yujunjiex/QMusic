@@ -1,6 +1,6 @@
 #include "showTableButton.h"
 #include "middleLeftStackWidget0.h"
-#include "middlewidgetleft.h"
+#include "middleWidgetLeft.h"
 #include "middleWidgets.h"
 #include <QHBoxLayout>
 #include <QAction>
@@ -31,8 +31,7 @@ void showTableButton::init()
     m_lineEdit.hide();
 
     m_btncover.setFixedSize(70,70);
-    m_btncover.setIcon(QIcon(":/middlewidget/images/middlewidget/lab_Author.png"));
-    m_btncover.setIconSize(QSize(70,70));
+    this->setCoverimg(":/middlewidget/images/middlewidget/lab_Author.png");
 
     QHBoxLayout *lyout=new QHBoxLayout;
 

@@ -45,9 +45,14 @@ playListWidget::playListWidget(QWidget *parent):baseWidget(parent)
     setLayout(vlyout1);
 }
 
-void playListWidget::setCurrentSongAlbumPic(const QString &strPath)
+void playListWidget::setCurrentSongAlbumPic(const QPixmap &pixmap)
 {
-    m_Btntable.setCoverimg(strPath);
+    m_Btntable.setCoverimg(pixmap);
+}
+
+void playListWidget::setCurrentSongAlbumPic(const QString &path)
+{
+     m_Btntable.setCoverimg(path);
 }
 
 void playListWidget::setAutoLayout()
@@ -86,7 +91,8 @@ void playListWidget::stopCurrentSong()
 
 }
 
-void playListWidget::addToPlayList(const QString &name, const QString &url, const QString &dur, const QString &strHash, bool /*bAddtoDB*/)
+void playListWidget::addToPlayList(const QString &name, const QString &url, const QString &dur,
+                                   const QString &coverUrl, const QString &songID, bool /*bAddtoDB*/)
 {
 
     int rowcount= m_table.rowCount();
@@ -98,7 +104,7 @@ void playListWidget::addToPlayList(const QString &name, const QString &url, cons
     m_table.item(rowcount,2)->setTextAlignment(Qt::AlignRight|Qt::AlignVCenter);
 
     /*本地文件的列表添加方式*/
-    m_playList.addPlayList(url,strHash);
+    m_playList.addPlayList(url,coverUrl,songID);
 
     /*数据库的添加*/
 //    if(bAddtoDB)

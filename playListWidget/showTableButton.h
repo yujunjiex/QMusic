@@ -33,7 +33,11 @@ public:
 
     QString getListName(){return m_playlistName.text().split("[").value(0);}
 
-    void setCoverimg(QString strPath){m_cover.setIcon(QPixmap(strPath).scaled(70,70));}
+    void setCoverimg(QPixmap pixmap){m_btncover.setIcon(QIcon(pixmap));
+                                     m_btncover.setIconSize(QSize(70,70));}
+
+    void setCoverimg(QString path){m_btncover.setIcon(QPixmap(path));
+                                    m_btncover.setIconSize(QSize(70,70));}
 
 public slots:
     void slot_updateSongCount();

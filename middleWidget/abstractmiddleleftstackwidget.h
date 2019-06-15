@@ -48,9 +48,14 @@ public Q_SLOTS:
 
     void slot_removePlayList();//删除列表
 
-    void addPlayList(const QString&);
+    playListWidget * addPlayList(const QString&);
 
     void slot_addPlayListWithRename();
+
+signals:
+    //给需要网络请求的leftstack调用
+    void sig_requestSongCover(const QString &coverUrl);
+    void sig_requestSongLyric(const QString &songID);
 
 
 protected:

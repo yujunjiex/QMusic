@@ -135,7 +135,28 @@ private:
 };
 
 
+class playingWidgetBtn :public myPushButton //带下划线的button
+{
+ Q_OBJECT
+public:
+    explicit playingWidgetBtn(QWidget*p=0);
+    void setNormalColor(const QColor &color);
+    void setHoverColor(const QColor &color);
+    void adjustSize();
+    void setText(const QString &text);
+    QString text(){return m_text;}
 
+protected:
+    virtual void paintEvent(QPaintEvent *);
+    virtual void mouseMoveEvent(QMouseEvent *e);
+    virtual void mousePressEvent(QMouseEvent*);
+    virtual void leaveEvent(QEvent*);
+private:
+    QString m_text;
+    QColor m_normalcolor;
+    QColor m_hovercolor;
+    bool m_isenter;
+};
 
 
 

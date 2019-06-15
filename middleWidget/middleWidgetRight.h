@@ -31,8 +31,7 @@ public:
 //   middleSearchWidget * getSearWidget(){return &m_searchwid;}
    static QColor bgcolor;   //选中后的颜色(蓝)
 public slots:
-   //void slot_setSearchStack();
-   //void slot_search(const QString&);
+   //void slot_search(const QString&);  //TODO:设置search对应的stack
    void slot_btnClick();    //用于显示每个button对应的widget
    void slot_curStackChange(int);
 protected:
